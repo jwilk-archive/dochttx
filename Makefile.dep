@@ -1,0 +1,5 @@
+dochttx.o: dochttx.c ui.h vbi.h render.h locale.h
+locale.o: locale.c locale.h
+render.o: render.c render.h ui.h vbi.h
+ui.o: ui.c vbi.h ui.h
+vbi.o: vbi.c vbi.h
