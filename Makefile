@@ -6,7 +6,7 @@ MAKEFILES = Makefile $(wildcard Makefile.*)
 DISTFILES = $(CFILES) $(HFILES) $(MAKEFILES)
 FAKEROOT = $(shell command -v fakeroot 2>/dev/null)
 
-VERSION = 0.1
+VERSION = 0.2
 CC = gcc
 CFLAGS := -std=gnu99
 CFLAGS += -Os -s
