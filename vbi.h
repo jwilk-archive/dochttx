@@ -19,7 +19,7 @@ struct vbi_state
 extern short vbi_colors[8];
 
 struct vbi_state *vbi_open(char*, int);
-int vbi_hasdata(struct vbi_state*);
+int vbi_has_data(struct vbi_state*);
 void vbi_close(struct vbi_state*);
 
 #endif

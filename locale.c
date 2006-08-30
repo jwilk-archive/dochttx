@@ -13,7 +13,7 @@ bool locale_init(void)
   if (setlocale(LC_ALL, "") == NULL)
     return false;
   charset = strdup(nl_langinfo(CODESET));
-  return (charset != NULL);
+  return charset != NULL;
 }
 
 void locale_quit()

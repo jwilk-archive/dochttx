@@ -1,0 +1,18 @@
+dochttx (0.2.1) unstable; urgency=low
+
+  * Initial public release, no significant changes.
+
+ -- Jakub Wilk <ubanus@users.sf.net>  Wed, 30 Aug 2006 15:01:51 +0200
+
+dochttx (0.2) unstable; urgency=low
+  
+  * Editing facilities.
+  * Support for bold and blink attributes.
+ 
+ -- Jakub Wilk <ubanus@users.sf.net>  Wed, 13 Apr 2005 18:09:11 +0200
+
+dochttx (0.1) unstable; urgency=low
+
+  * Initial release.
+
+ -- Jakub Wilk <ubanus@users.sf.net>  Fri, 21 Oct 2005 22:53:44 +0200

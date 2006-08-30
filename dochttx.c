@@ -22,7 +22,7 @@ void intercept(vbi_event *ev, void *dec)
   np_drawn = false;
 }
 
-void show_displayinfo(vbi_decoder* dec, vbi_pgno pgno, vbi_subno subno)
+void show_display_info(vbi_decoder* dec, vbi_pgno pgno, vbi_subno subno)
 {
   vbi_subno maxsubno;
   vbi_classify_page(dec, pgno, &maxsubno, NULL);
@@ -45,7 +45,7 @@ int main(void)
   bool lf_update = true;
  
   mvvline(0, 41, ACS_VLINE, 25);
-  for (int y=1; y<25; y++)
+  for (int y = 1; y < 25; y++)
     mvhline(y, 0, ACS_BOARD, 41);
   mvhline(25, 0, ACS_HLINE, COLS);
   mvaddch(25, 41, ACS_BTEE);
@@ -75,7 +75,7 @@ int main(void)
       break;
     }
     if (FD_ISSET(vbi->fd, &rdfs))
-      vbi_hasdata(vbi);
+      vbi_has_data(vbi);
     if (FD_ISSET(STDIN_FILENO, &rdfs))
     {
       bool do_quit = false;
@@ -186,7 +186,7 @@ int main(void)
     if (!drawn && vbi_is_cached(vbi->dec, pgno, subno))
     {
       vbi_subno tmp_subno = vbi_render(vbi->dec, pgno, subno, 25);
-      show_displayinfo(vbi->dec, pgno, tmp_subno);
+      show_display_info(vbi->dec, pgno, tmp_subno);
       drawn = true;
     }
     else if (!np_drawn)
@@ -196,7 +196,7 @@ int main(void)
         lines = 25;
       vbi_render(vbi->dec, np_pgno, np_subno, lines);
       if (lines == 25)
-        show_displayinfo(vbi->dec, np_pgno, np_subno);
+        show_display_info(vbi->dec, np_pgno, np_subno);
       np_drawn = true;
     }
     doupdate();

@@ -12,7 +12,7 @@ short vbi_colors[8] =
 struct vbi_state *vbi_open(char *dev, int region)
 {
   struct vbi_state *vbi;
-  int services =
+  unsigned int services =
     VBI_SLICED_VBI_525 | VBI_SLICED_VBI_625 |
     VBI_SLICED_TELETEXT_B | VBI_SLICED_CAPTION_525 |
     VBI_SLICED_CAPTION_625 | VBI_SLICED_VPS |
@@ -49,7 +49,7 @@ struct vbi_state *vbi_open(char *dev, int region)
   return NULL;
 }
 
-int vbi_hasdata(struct vbi_state *vbi)
+int vbi_has_data(struct vbi_state *vbi)
 {
   int rc;
   rc = vbi_capture_read(vbi->cap, vbi->raw, vbi->sliced, &vbi->lines, &vbi->ts, &vbi->tv);

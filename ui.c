@@ -10,8 +10,8 @@ static void color_setup(void)
   start_color();
   int i, j, u;
   u = 1;
-  for (i=0; i<8; i++)
-  for (j=0; j<8; j++, u++)
+  for (i = 0; i < 8; i++)
+  for (j = 0; j < 8; j++, u++)
   {
     init_pair(u, vbi_colors[i], vbi_colors[j]);
     colors[i][j] = COLOR_PAIR(u);
