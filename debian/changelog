@@ -1,3 +1,10 @@
+dochttx (0.2.2) unstable; urgency=low
+
+  * Fix a character converting routine which prevented correct display on
+    UTF-8 terminals.
+
+ -- Jakub Wilk <ubanus@users.sf.net>  Sat,  2 Sep 2006 19:28:55 +0200
+
 dochttx (0.2.1) unstable; urgency=low
 
   * Initial public release, no significant changes.

@@ -1,3 +1,9 @@
+/* Copyright (c) 2005, 2006 Jakub Wilk
+ * This program is free software; you can redistribute it and/or modify it
+ * under the terms of the GNU General Public License version 2 as published 
+ * by the Free Software Foundation.
+ */
+
 #include <errno.h>
 #include <stdbool.h>
 #include <stdlib.h>
@@ -26,7 +32,7 @@ void show_display_info(vbi_decoder* dec, vbi_pgno pgno, vbi_subno subno)
 {
   vbi_subno maxsubno;
   vbi_classify_page(dec, pgno, &maxsubno, NULL);
-  mvhline(4, 43, ' ', COLS-43);
+  mvhline(4, 43, ' ', COLS - 43);
   mvprintw(4, 43, "Showing page %03x", pgno);
   if (maxsubno == 0)
     printw(", no subpages");
@@ -59,7 +65,7 @@ int main(void)
   vbi_pgno pgno = 0x100;
   vbi_subno subno = VBI_ANY_SUBNO;
   bool drawn = false;
-  memset(lf, 0, sizeof(lf));
+  memset(lf, 0, sizeof lf);
   while (true)
   {
     struct timeval tv = { .tv_sec = 5, .tv_usec = 0 };
@@ -112,7 +118,7 @@ int main(void)
       case '.':
         if (lf[5] == '\0')
         {
-          memmove(lf+lf_pos+1, lf+lf_pos, 7-lf_pos);
+          memmove(lf + lf_pos + 1, lf + lf_pos, 7 - lf_pos);
           lf[lf_pos++] = (char)chr;
         }
         lf_status = 0;
@@ -127,7 +133,7 @@ int main(void)
       case '\b':
         if (lf_pos == 0)
           break;
-        memmove(lf+lf_pos-1, lf+lf_pos, 7-lf_pos);
+        memmove(lf + lf_pos - 1, lf + lf_pos, 7 - lf_pos);
         lf_pos--;
         lf_status = 0;
         lf_update = true;
@@ -150,7 +156,7 @@ int main(void)
             char subnos[3] = "*";
             if (subno != VBI_ANY_SUBNO)
               sprintf(subnos, "%02x", subno);
-            mvhline(2, 43, ' ', COLS-43);
+            mvhline(2, 43, ' ', COLS - 43);
             mvprintw(2, 43, "Looking for %03x.%s", pgno, subnos);
           } 
           else
@@ -180,7 +186,7 @@ int main(void)
       mvprintw(0, 53, lf);
       attrset(A_NORMAL);
       wnoutrefresh(stdscr);
-      setsyx(0, 53+lf_pos);
+      setsyx(0, 53 + lf_pos);
       lf_update = false;
     }
     if (!drawn && vbi_is_cached(vbi->dec, pgno, subno))

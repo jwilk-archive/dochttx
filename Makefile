@@ -10,7 +10,6 @@ CFLAGS += -Os -s
 CFLAGS += -W -Wall
 CFLAGS += -D_GNU_SOURCE -DVERSION='"$(VERSION)"'
 LDFLAGS := -lzvbi -lncursesw
-INDENTFLAGS = -nut -cli0 -bli0 -npcs -npsl
 
 .PHONY: all
 all: $(EXEFILE)

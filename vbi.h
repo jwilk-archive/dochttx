@@ -1,5 +1,5 @@
 #ifndef _VBI_DATA_H
-#define _VBI_DATA_H 1
+#define _VBI_DATA_H
 
 #include <libzvbi.h>
 
@@ -18,9 +18,9 @@ struct vbi_state
 
 extern short vbi_colors[8];
 
-struct vbi_state *vbi_open(char*, int);
-int vbi_has_data(struct vbi_state*);
-void vbi_close(struct vbi_state*);
+struct vbi_state *vbi_open(char *, int);
+int vbi_has_data(struct vbi_state *);
+void vbi_close(struct vbi_state *);
 
 #endif
 

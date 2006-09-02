@@ -1,3 +1,9 @@
+/* Copyright (c) 2005, 2006 Jakub Wilk
+ * This program is free software; you can redistribute it and/or modify it
+ * under the terms of the GNU General Public License version 2 as published 
+ * by the Free Software Foundation.
+ */
+
 #include <wchar.h>
 #include <string.h>
 #include <stdlib.h>
@@ -31,7 +37,7 @@ static void private_render(vbi_page *pg, int lines)
         attron(A_BOLD);
       if (ch->flash)
         attron(A_BLINK);
-      if (wcwidth(wcs[0]) != 1 || wcstombs(mbs, wcs, 1) == (size_t)-1)
+      if (wcwidth(wcs[0]) != 1 || wcstombs(mbs, wcs, sizeof(mbs)) == (size_t)-1)
         mvaddch(y, x, ACS_CKBOARD);
       else
         mvprintw(y, x, "%s", mbs); 
@@ -54,4 +60,3 @@ vbi_subno vbi_render(vbi_decoder *dec, vbi_pgno pgno, vbi_subno subno, int lines
 }
 
 // vim:ts=2 sw=2 et
-
