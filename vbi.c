@@ -8,7 +8,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stdbool.h>
-#include <ncurses.h>
+#include <ncursesw/ncurses.h>
 
 #include "vbi.h"
 

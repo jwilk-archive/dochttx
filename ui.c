@@ -5,7 +5,7 @@
  * Software Foundation; version 2 dated June, 1991.
  */
 
-#include <ncurses.h>
+#include <ncursesw/ncurses.h>
 
 #include "vbi.h"
 #include "ui.h"
