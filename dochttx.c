@@ -43,8 +43,8 @@ void show_display_info(vbi_decoder* dec, vbi_pgno pgno, vbi_subno subno)
 
 int main(void)
 {
-  locale_init();
-  ncurses_init();
+  dochttx_locale_init();
+  dochttx_ncurses_init();
  
   char lf[8];
   int lf_pos = 0;
@@ -60,7 +60,7 @@ int main(void)
   mvprintw(2, 43, "Looking for 100.*");
   wnoutrefresh(stdscr);
   
-  struct vbi_state* vbi = vbi_open("/dev/vbi0", 8);
+  struct dochttx_vbi_state* vbi = dochttx_vbi_open("/dev/vbi0", 8);
   vbi_event_handler_register(vbi->dec, VBI_EVENT_TTX_PAGE, intercept, (void*) vbi->dec);
   
   vbi_pgno pgno = 0x100;
@@ -82,7 +82,7 @@ int main(void)
       break;
     }
     if (FD_ISSET(vbi->fd, &rdfs))
-      vbi_has_data(vbi);
+      dochttx_vbi_has_data(vbi);
     if (FD_ISSET(STDIN_FILENO, &rdfs))
     {
       bool do_quit = false;
@@ -175,7 +175,7 @@ int main(void)
       switch (lf_status)
       {
       case -1:
-        attrset(colors[7][1]);
+        attrset(dochttx_colors[7][1]);
       case 2:
       case 1:
         attron(A_BOLD);
@@ -192,7 +192,7 @@ int main(void)
     }
     if (!drawn && vbi_is_cached(vbi->dec, pgno, subno))
     {
-      vbi_subno tmp_subno = vbi_render(vbi->dec, pgno, subno, 25);
+      vbi_subno tmp_subno = dochttx_vbi_render(vbi->dec, pgno, subno, 25);
       show_display_info(vbi->dec, pgno, tmp_subno);
       drawn = true;
     }
@@ -201,16 +201,16 @@ int main(void)
       int lines = 1;
       if (pgno == np_pgno && (subno == VBI_ANY_SUBNO || subno == np_subno))
         lines = 25;
-      vbi_render(vbi->dec, np_pgno, np_subno, lines);
+      dochttx_vbi_render(vbi->dec, np_pgno, np_subno, lines);
       if (lines == 25)
         show_display_info(vbi->dec, np_pgno, np_subno);
       np_drawn = true;
     }
     doupdate();
   }
-  ncurses_quit();
-  vbi_close(vbi);
-  locale_quit(); 
+  dochttx_ncurses_quit();
+  dochttx_vbi_close(vbi);
+  dochttx_locale_quit(); 
   return EXIT_SUCCESS;
 }
 

@@ -1,10 +1,10 @@
-#ifndef LOCALE_H
-#define LOCALE_H
+#ifndef DOCHTTX_LOCALE_H
+#define DOCHTTX_LOCALE_H
 
-extern char* charset;
+extern char* dochttx_charset;
 
-bool locale_init(void);
-void locale_quit();
+bool dochttx_locale_init(void);
+void dochttx_locale_quit();
 
 #endif
 

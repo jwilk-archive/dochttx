@@ -1,10 +1,10 @@
-#ifndef UI_H
-#define UI_H
+#ifndef DOCHTTX_UI_H
+#define DOCHTTX_UI_H
 
-extern int colors[8][8];
+extern int dochttx_colors[8][8];
 
-void ncurses_init(void);
-void ncurses_quit(void);
+void dochttx_ncurses_init(void);
+void dochttx_ncurses_quit(void);
 
 #endif
 

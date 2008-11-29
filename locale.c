@@ -13,19 +13,19 @@
 
 #include "locale.h"
 
-char* charset = NULL;
+char* dochttx_charset = NULL;
 
-bool locale_init(void)
+bool dochttx_locale_init(void)
 {
   if (setlocale(LC_ALL, "") == NULL)
     return false;
-  charset = strdup(nl_langinfo(CODESET));
-  return charset != NULL;
+  dochttx_charset = strdup(nl_langinfo(CODESET));
+  return dochttx_charset != NULL;
 }
 
-void locale_quit()
+void dochttx_locale_quit()
 {
-  free(charset);
+  free(dochttx_charset);
 }
 
 // vim:ts=2 sw=2 et

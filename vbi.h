@@ -1,9 +1,9 @@
-#ifndef _VBI_DATA_H
-#define _VBI_DATA_H
+#ifndef DOCHTTX_VBI_DATA_H
+#define DOCHTTX_VBI_DATA_H
 
 #include <libzvbi.h>
 
-struct vbi_state
+struct dochttx_vbi_state
 {
   vbi_decoder *dec;
   vbi_capture *cap;
@@ -16,11 +16,11 @@ struct vbi_state
   struct timeval tv;
 };
 
-extern short vbi_colors[8];
+extern short dochttx_vbi_colors[8];
 
-struct vbi_state *vbi_open(char *, int);
-int vbi_has_data(struct vbi_state *);
-void vbi_close(struct vbi_state *);
+struct dochttx_vbi_state *dochttx_vbi_open(char *, int);
+int dochttx_vbi_has_data(struct dochttx_vbi_state *);
+void dochttx_vbi_close(struct dochttx_vbi_state *);
 
 #endif
 

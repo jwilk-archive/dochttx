@@ -12,13 +12,13 @@
 
 #include "vbi.h"
 
-short vbi_colors[8] = 
+short dochttx_vbi_colors[8] = 
 { COLOR_BLACK, COLOR_RED, COLOR_GREEN, COLOR_YELLOW, 
   COLOR_BLUE, COLOR_MAGENTA, COLOR_CYAN, COLOR_WHITE };
 
-struct vbi_state *vbi_open(char *dev, int region)
+struct dochttx_vbi_state *dochttx_vbi_open(char *dev, int region)
 {
-  struct vbi_state *vbi;
+  struct dochttx_vbi_state *vbi;
   unsigned int services =
     VBI_SLICED_VBI_525 | VBI_SLICED_VBI_625 |
     VBI_SLICED_TELETEXT_B | VBI_SLICED_CAPTION_525 |
@@ -51,12 +51,12 @@ struct vbi_state *vbi_open(char *dev, int region)
     return vbi;
   } 
   while (false);
-  vbi_close(vbi);
+  dochttx_vbi_close(vbi);
   fprintf(stderr, "vbi: open failed (%s)\n", dev);
   return NULL;
 }
 
-int vbi_has_data(struct vbi_state *vbi)
+int dochttx_vbi_has_data(struct dochttx_vbi_state *vbi)
 {
   int rc;
   rc = vbi_capture_read(vbi->cap, vbi->raw, vbi->sliced, &vbi->lines, &vbi->ts, &vbi->tv);
@@ -64,7 +64,7 @@ int vbi_has_data(struct vbi_state *vbi)
   return rc;
 }
 
-void vbi_close(struct vbi_state *vbi)
+void dochttx_vbi_close(struct dochttx_vbi_state *vbi)
 {
   if (vbi == NULL)
     return;

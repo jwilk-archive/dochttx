@@ -33,7 +33,7 @@ static void private_render(vbi_page *pg, int lines)
       wcs[0] = ch->unicode;
       if (ch->size > VBI_DOUBLE_SIZE || ch->conceal)
         wcs[0] = L' ';
-      attrset(colors[ch->foreground][ch->background]);
+      attrset(dochttx_colors[ch->foreground][ch->background]);
       if (ch->bold)
         attron(A_BOLD);
       if (ch->flash)
@@ -50,7 +50,7 @@ static void private_render(vbi_page *pg, int lines)
   doupdate();
 }
 
-vbi_subno vbi_render(vbi_decoder *dec, vbi_pgno pgno, vbi_subno subno, int lines)
+vbi_subno dochttx_vbi_render(vbi_decoder *dec, vbi_pgno pgno, vbi_subno subno, int lines)
 {
   vbi_page page;
   vbi_fetch_vt_page(dec, &page, pgno, subno, VBI_WST_LEVEL_1p5, lines, 1);
