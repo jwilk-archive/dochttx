@@ -2,43 +2,23 @@
 
 configure: ;
 
-build: build-stamp
-
-build-stamp:
-	dh_testdir
-	$(MAKE)
-	touch $@
+build:
+	dh build
 
 clean:
-	dh_testdir
-	dh_testroot
-	rm -f build-stamp
-	-$(MAKE) clean
-	dh_clean 
+	dh clean
 
 install: build
-	dh_testdir
-	dh_testroot
-	dh_clean -k 
-	dh_install dochttx usr/bin/
+	dh install
 
-binary-indep: build install
+binary-indep: install
+	dh binary-indep
 
-binary-arch: build install
-	dh_testdir
-	dh_testroot
-	dh_installchangelogs 
-	dh_installdocs
-	dh_installman
-	dh_link
-	dh_strip
-	dh_compress
-	dh_fixperms
-	dh_installdeb
-	dh_shlibdeps
-	dh_gencontrol
-	dh_md5sums
-	dh_builddeb
+binary-arch: install
+	dh binary-arch
 
-binary: binary-indep binary-arch
+binary: binary-arch binary-indep
+
 .PHONY: build clean binary-indep binary-arch binary install configure
+
+# vim:ts=4 sw=4 noet

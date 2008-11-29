@@ -1,3 +1,9 @@
+dochttx (0.2.3) unstable; urgency=low
+
+  * Cleanup.
+
+ -- Jakub Wilk <ubanus@users.sf.net>  Sat, 29 Nov 2008 23:07:21 +0100
+
 dochttx (0.2.2) unstable; urgency=low
 
   * Fix a character converting routine which prevented correct display on
