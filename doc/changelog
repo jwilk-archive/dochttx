@@ -1,0 +1,31 @@
+dochttx (0.2.3) unstable; urgency=low
+
+  * Clean up the code.
+
+ -- Jakub Wilk <jwilk@jwilk.net>  Sat, 29 Nov 2008 23:07:21 +0100
+
+dochttx (0.2.2) unstable; urgency=low
+
+  * Fix a character converting routine which prevented correct display on
+    UTF-8 terminals.
+
+ -- Jakub Wilk <jwilk@jwilk.net>  Sat,  2 Sep 2006 19:28:55 +0200
+
+dochttx (0.2.1) unstable; urgency=low
+
+  * Initial public release, no significant changes.
+
+ -- Jakub Wilk <jwilk@jwilk.net>  Wed, 30 Aug 2006 15:01:51 +0200
+
+dochttx (0.2) unstable; urgency=low
+
+  * Add editing facilities.
+  * Add support for bold and blink attributes.
+
+ -- Jakub Wilk <jwilk@jwilk.net>  Wed, 13 Apr 2005 18:09:11 +0200
+
+dochttx (0.1) unstable; urgency=low
+
+  * Initial release.
+
+ -- Jakub Wilk <jwilk@jwilk.net>  Fri, 21 Oct 2005 22:53:44 +0200
