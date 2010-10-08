@@ -1,3 +1,9 @@
+dochttx (0.2.4) UNRELEASED; urgency=low
+
+  * Relicense to the Expat license.
+
+ -- Jakub Wilk <jwilk@jwilk.net>  Fri, 08 Oct 2010 15:57:18 +0200
+
 dochttx (0.2.3) unstable; urgency=low
 
   * Clean up the code.
