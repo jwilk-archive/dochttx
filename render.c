@@ -30,7 +30,7 @@
 
 static void private_render(vbi_page *pg, int lines)
 {
-  int x, y, sx, sy;
+  int x, y, sx = -1, sy = 1;
   vbi_char *ch;
   wchar_t wcs[2];
   char mbs[16];
