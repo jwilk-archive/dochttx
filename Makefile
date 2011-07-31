@@ -3,7 +3,7 @@ HFILES = $(wildcard *.h)
 CFILES = $(wildcard *.c)
 OFILES = $(CFILES:%.c=%.o)
 
-VERSION = $(shell sed -n -e '1 s/.*(\([0-9.]*\)).*/\1/p' < debian/changelog)
+VERSION = $(shell sed -n -e '1 s/.*(\([0-9.]*\)).*/\1/p' < doc/changelog)
 CC = gcc
 CFLAGS := -std=gnu99
 CFLAGS += -Os -s
