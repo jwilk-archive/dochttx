@@ -2,8 +2,9 @@ dochttx (0.2.4) UNRELEASED; urgency=low
 
   * Relicense to the Expat license.
   * Remove Debian packaging.
+  * Fix a compiler warning.
 
- -- Jakub Wilk <jwilk@jwilk.net>  Mon, 29 Aug 2011 23:47:09 +0200
+ -- Jakub Wilk <jwilk@jwilk.net>  Mon, 29 Aug 2011 23:47:51 +0200
 
 dochttx (0.2.3) unstable; urgency=low
 
