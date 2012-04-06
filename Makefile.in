@@ -20,7 +20,7 @@ clean:
 	$(RM) *.o $(EXEFILE) core core.* *~ Makefile.dep
 
 .PHONY: distclean
-distclean:
+distclean: clean
 	rm -f config.log config.status config.h
 
 $(OFILES): %.o: %.c
