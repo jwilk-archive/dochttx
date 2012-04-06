@@ -19,8 +19,7 @@
  * SOFTWARE.
  */
 
-#include <ncursesw/ncurses.h>
-
+#include "anycurses.h"
 #include "vbi.h"
 #include "ui.h"
 

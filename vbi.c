@@ -22,8 +22,8 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stdbool.h>
-#include <ncursesw/ncurses.h>
 
+#include "anycurses.h"
 #include "vbi.h"
 
 short dochttx_vbi_colors[8] = 

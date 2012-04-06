@@ -4,12 +4,13 @@ CFILES = $(wildcard *.c)
 OFILES = $(CFILES:%.c=%.o)
 
 VERSION = $(shell sed -n -e '1 s/.*(\([0-9.]*\)).*/\1/p' < doc/changelog)
-CC = gcc
-CFLAGS := -std=gnu99
-CFLAGS += -Os -s
+
+CC = @CC@
+CFLAGS = @CFLAGS@ @ZVBI_CFLAGS@
 CFLAGS += -W -Wall
-CFLAGS += -D_GNU_SOURCE -DVERSION='"$(VERSION)"'
-LDFLAGS := -lzvbi -lncursesw
+LDFLAGS = @LDFLAGS@
+LDLIBS = @LIBS@ @CURSES_LIB@ @ZVBI_LIBS@
+CPPFLAGS = @CPPFLAGS@
 
 .PHONY: all
 all: $(EXEFILE)
@@ -18,11 +19,15 @@ all: $(EXEFILE)
 clean:
 	$(RM) *.o $(EXEFILE) core core.* *~ Makefile.dep
 
+.PHONY: distclean
+distclean:
+	rm -f config.log config.status config.h
+
 $(OFILES): %.o: %.c
 	$(CC) $(CFLAGS) -c ${<} -o ${@}
 
 $(EXEFILE): $(OFILES)
-	$(CC) $(CFLAGS) $(LDFLAGS) ${^} -o ${@}
+	$(CC) $(CFLAGS) $(LDFLAGS) ${^} $(LDLIBS) -o ${@}
 
 Makefile.dep: $(CFILES) $(HFILES)
 	$(CC) $(CFLAGS) -MM $(CFILES) > ${@}

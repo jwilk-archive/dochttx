@@ -19,11 +19,13 @@
  * SOFTWARE.
  */
 
+#include "config.h"
+
 #include <wchar.h>
 #include <string.h>
 #include <stdlib.h>
-#include <ncursesw/ncurses.h>
 
+#include "anycurses.h"
 #include "render.h"
 #include "ui.h"
 #include "vbi.h"

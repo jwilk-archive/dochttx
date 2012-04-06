@@ -24,8 +24,8 @@
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
-#include <ncursesw/ncurses.h>
 
+#include "anycurses.h"
 #include "ui.h"
 #include "vbi.h"
 #include "render.h"
