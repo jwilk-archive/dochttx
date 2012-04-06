@@ -35,7 +35,7 @@ static vbi_pgno np_pgno = 0;
 static vbi_subno np_subno = 0;
 static bool np_drawn = true;
 
-void intercept(vbi_event *ev, void *dec)
+static void intercept(vbi_event *ev, void *dec)
 {
   dec = dec;
   np_pgno = ev->ev.ttx_page.pgno;
@@ -43,7 +43,7 @@ void intercept(vbi_event *ev, void *dec)
   np_drawn = false;
 }
 
-void show_display_info(vbi_decoder* dec, vbi_pgno pgno, vbi_subno subno)
+static void show_display_info(vbi_decoder* dec, vbi_pgno pgno, vbi_subno subno)
 {
   vbi_subno maxsubno;
   vbi_classify_page(dec, pgno, &maxsubno, NULL);

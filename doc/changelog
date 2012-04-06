@@ -1,3 +1,9 @@
+dochttx (0.2.5) unstable; urgency=low
+
+  * 
+
+ -- Jakub Wilk <jwilk@jwilk.net> Fri, 06 Apr 2012 16:10:45 +0200
+
 dochttx (0.2.4) unstable; urgency=low
 
   * Relicense to the Expat license.
