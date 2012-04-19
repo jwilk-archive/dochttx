@@ -3,8 +3,6 @@ HFILES = $(wildcard *.h)
 CFILES = $(wildcard *.c)
 OFILES = $(CFILES:%.c=%.o)
 
-VERSION = $(shell sed -n -e '1 s/.*(\([0-9.]*\)).*/\1/p' < doc/changelog)
-
 CC = @CC@
 CFLAGS = @CFLAGS@ @ZVBI_CFLAGS@
 CFLAGS += -W -Wall
