@@ -22,13 +22,13 @@ distclean: clean
 	rm -f config.log config.status config.h
 
 $(OFILES): %.o: %.c
-	$(CC) $(CFLAGS) -c ${<} -o ${@}
+	$(CC) $(CFLAGS) -c $(<) -o $(@)
 
 $(EXEFILE): $(OFILES)
-	$(CC) $(CFLAGS) $(LDFLAGS) ${^} $(LDLIBS) -o ${@}
+	$(CC) $(CFLAGS) $(LDFLAGS) $(^) $(LDLIBS) -o $(@)
 
 Makefile.dep: $(CFILES) $(HFILES)
-	$(CC) $(CFLAGS) -MM $(CFILES) > ${@}
+	$(CC) $(CFLAGS) -MM $(CFILES) > $(@)
 
 -include Makefile.dep
 
