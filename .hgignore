@@ -4,6 +4,7 @@ syntax: glob
 Makefile
 Makefile.dep
 aclocal.m4
+autom4te.cache/
 config.h
 config.h.in
 config.log
