@@ -16,7 +16,7 @@ all: $(exe_file)
 
 .PHONY: clean
 clean:
-	$(RM) *.o $(exe_file) core core.* *~ Makefile.dep
+	rm -f *.o $(exe_file) core core.* *~ Makefile.dep
 
 .PHONY: distclean
 distclean: clean
