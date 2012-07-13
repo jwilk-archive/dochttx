@@ -6,6 +6,7 @@ o_files = $(c_files:%.c=%.o)
 CC = @CC@
 CFLAGS = @CFLAGS@ @ZVBI_CFLAGS@
 CFLAGS += -W -Wall
+CPPFLAGS = @CPPFLAGS@
 LDFLAGS = @LDFLAGS@
 LDLIBS = @LIBS@ @CURSES_LIB@ @ZVBI_LIBS@
 CPPFLAGS = @CPPFLAGS@
@@ -21,14 +22,11 @@ clean:
 distclean: clean
 	rm -f config.log config.status config.h
 
-$(o_files): %.o: %.c
-	$(CC) $(CFLAGS) -c $(<) -o $(@)
-
 $(exe_file): $(o_files)
 	$(CC) $(CFLAGS) $(LDFLAGS) $(^) $(LDLIBS) -o $(@)
 
 Makefile.dep: $(c_files) $(h_files)
-	$(CC) $(CFLAGS) -MM $(c_files) > $(@)
+	$(CC) $(CFLAGS) $(CPPFLAGS) -MM $(c_files) > $(@)
 
 -include Makefile.dep
 
