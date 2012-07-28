@@ -1,9 +1,9 @@
 syntax: glob
 
+*.m4
 *.o
 Makefile
 Makefile.dep
-aclocal.m4
 autom4te.cache/
 config.h
 config.h.in
