@@ -15,9 +15,9 @@ export GZIP="-9 -n"
 mkdir -p "$sourceroot/$name-$version"
 if [ -d .hg ]
 then
-  hg archive -r "$version" "$sourceroot/$name-$version"
+    hg archive -r "$version" "$sourceroot/$name-$version"
 else
-  hg clone -r "$version" "$url" "$sourceroot/$name-$version"
+    hg clone -r "$version" "$url" "$sourceroot/$name-$version"
 fi
 cd "$sourceroot"/*
 tools/autogen
@@ -27,4 +27,4 @@ cd ..
 tar -czf "$pwd/$name-$version.tar.gz" */
 rm -rf "$sourceroot"
 
-# vim:ts=2 sw=2 et
+# vim:ts=4 sw=4 et
