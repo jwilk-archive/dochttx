@@ -58,6 +58,12 @@ static void show_display_info(vbi_decoder* dec, vbi_pgno pgno, vbi_subno subno)
 int main(void)
 {
   dochttx_locale_init();
+
+  struct dochttx_vbi_state* vbi = dochttx_vbi_open("/dev/vbi0", 8);
+  if (vbi == NULL) {
+    return EXIT_FAILURE;
+  }
+
   dochttx_ncurses_init();
  
   char lf[8];
@@ -74,7 +80,6 @@ int main(void)
   mvprintw(2, 43, "Looking for 100.*");
   wnoutrefresh(stdscr);
   
-  struct dochttx_vbi_state* vbi = dochttx_vbi_open("/dev/vbi0", 8);
   vbi_event_handler_register(vbi->dec, VBI_EVENT_TTX_PAGE, intercept, (void*) vbi->dec);
   
   vbi_pgno pgno = 0x100;
