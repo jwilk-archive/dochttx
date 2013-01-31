@@ -37,7 +37,7 @@ static bool np_drawn = true;
 
 static void intercept(vbi_event *ev, void *dec)
 {
-  dec = dec;
+  (void) dec; /* unused */
   np_pgno = ev->ev.ttx_page.pgno;
   np_subno = ev->ev.ttx_page.subno;
   np_drawn = false;
