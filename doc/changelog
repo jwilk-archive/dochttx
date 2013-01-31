@@ -1,11 +1,11 @@
-dochttx (0.2.5) UNRELEASED; urgency=low
+dochttx (0.2.5) unstable; urgency=low
 
   * Use autoconf for the build system.
   * Wide-characters support in the NCURSES library is no longer required
     (though it's still strongly recommended).
   * Improve error handling.
 
- -- Jakub Wilk <jwilk@jwilk.net>  Thu, 31 Jan 2013 21:34:28 +0100
+ -- Jakub Wilk <jwilk@jwilk.net>  Thu, 31 Jan 2013 21:39:09 +0100
 
 dochttx (0.2.4) unstable; urgency=low
 
