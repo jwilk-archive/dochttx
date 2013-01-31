@@ -5,7 +5,7 @@ o_files = $(c_files:%.c=%.o)
 
 CC = @CC@
 CFLAGS = @CFLAGS@ @ZVBI_CFLAGS@
-CFLAGS += -W -Wall
+CFLAGS += -Wall -Wextra
 CPPFLAGS = @CPPFLAGS@
 LDFLAGS = @LDFLAGS@
 LDLIBS = @LIBS@ @CURSES_LIB@ @ZVBI_LIBS@
