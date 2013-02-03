@@ -19,6 +19,7 @@
  * SOFTWARE.
  */
 
+#include <errno.h>
 #include <stdlib.h>
 #include <string.h>
 #include <stdbool.h>
@@ -38,6 +39,7 @@ struct dochttx_vbi_state *dochttx_vbi_open(char *dev, int region)
     VBI_SLICED_TELETEXT_B | VBI_SLICED_CAPTION_525 |
     VBI_SLICED_CAPTION_625 | VBI_SLICED_VPS |
     VBI_SLICED_WSS_625 | VBI_SLICED_WSS_CPR1204;
+  const char *error = NULL;
   do
   {
     vbi = malloc(sizeof(*vbi));
@@ -50,7 +52,10 @@ struct dochttx_vbi_state *dochttx_vbi_open(char *dev, int region)
     vbi_teletext_set_default_region(vbi->dec, region);
     vbi->cap = vbi_capture_v4l2_new(dev, 16, &services, -1, &vbi->err, 0);
     if (vbi->cap == NULL)
+    {
+      error = vbi->err;
       break;
+    }
     vbi->par = vbi_capture_parameters(vbi->cap);
     vbi->fd = vbi_capture_fd(vbi->cap);
     vbi->lines = (vbi->par->count[0] + vbi->par->count[1]);
@@ -65,8 +70,10 @@ struct dochttx_vbi_state *dochttx_vbi_open(char *dev, int region)
     return vbi;
   } 
   while (false);
+  if (error == NULL)
+    error = strerror(errno);
   dochttx_vbi_close(vbi);
-  fprintf(stderr, "vbi: open failed (%s)\n", dev);
+  fprintf(stderr, "dochttx: %s\n", error);
   return NULL;
 }
 

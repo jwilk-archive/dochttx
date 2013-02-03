@@ -1,3 +1,9 @@
+dochttx (0.2.6) UNRELEASED; urgency=low
+
+  * Improve error handling.
+
+ -- Jakub Wilk <jwilk@jwilk.net>  Sun, 03 Feb 2013 15:24:13 +0100
+
 dochttx (0.2.5) unstable; urgency=low
 
   * Use autoconf for the build system.
