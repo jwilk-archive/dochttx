@@ -76,4 +76,4 @@ vbi_subno dochttx_vbi_render(vbi_decoder *dec, vbi_pgno pgno, vbi_subno subno, i
   return subno;
 }
 
-// vim:ts=2 sw=2 et
+// vim:ts=2 sts=2 sw=2 et

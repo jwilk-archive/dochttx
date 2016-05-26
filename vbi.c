@@ -98,4 +98,4 @@ void dochttx_vbi_close(struct dochttx_vbi_state *vbi)
   free(vbi);
 }
 
-// vim:ts=2 sw=2 et
+// vim:ts=2 sts=2 sw=2 et

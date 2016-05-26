@@ -19,4 +19,4 @@ AC_CONFIG_HEADER([config.h])
 AC_CONFIG_FILES([Makefile])
 AC_OUTPUT
 
-dnl vim: ts=4 sw=4 et
+dnl vim:ts=4 sts=4 sw=4 et
