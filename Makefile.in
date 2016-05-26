@@ -20,7 +20,7 @@ clean:
 
 .PHONY: distclean
 distclean: clean
-	rm -f config.log config.status config.h
+	rm -f config.log config.status Makefile config.h
 
 $(exe_file): $(o_files)
 	$(CC) $(CFLAGS) $(LDFLAGS) $(^) $(LDLIBS) -o $(@)
