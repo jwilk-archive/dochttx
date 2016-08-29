@@ -65,12 +65,12 @@ int main(void)
   }
 
   dochttx_ncurses_init();
- 
+
   char lf[8];
   int lf_pos = 0;
   int lf_status = 0;
   bool lf_update = true;
- 
+
   mvvline(0, 41, ACS_VLINE, 25);
   for (int y = 1; y < 25; y++)
     mvhline(y, 0, ACS_BOARD, 41);
@@ -79,9 +79,9 @@ int main(void)
   mvprintw(0, 43, "Look for:");
   mvprintw(2, 43, "Looking for 100.*");
   wnoutrefresh(stdscr);
-  
+
   vbi_event_handler_register(vbi->dec, VBI_EVENT_TTX_PAGE, intercept, (void*) vbi->dec);
-  
+
   vbi_pgno pgno = 0x100;
   vbi_subno subno = VBI_ANY_SUBNO;
   bool drawn = false;
@@ -126,7 +126,7 @@ int main(void)
           lf_pos++;
         lf_update = true;
         break;
-      case '0': case '1': case '2': case '3': case '4': 
+      case '0': case '1': case '2': case '3': case '4':
       case '5': case '6': case '7': case '8': case '9':
         if (lf_status == 2)
         {
@@ -134,7 +134,7 @@ int main(void)
           lf[0] = (char)chr;
           lf_pos = 1;
         }
-        else 
+        else
       case '.':
         if (lf[5] == '\0')
         {
@@ -164,9 +164,9 @@ int main(void)
         {
           unsigned int new_pgno = 0;
           unsigned int new_subno = VBI_ANY_SUBNO;
-          if (sscanf(lf, "%x.%x", &new_pgno, &new_subno) >= 1 && 
-              new_pgno >= 0x100 && 
-              new_pgno <= 0x899 && 
+          if (sscanf(lf, "%x.%x", &new_pgno, &new_subno) >= 1 &&
+              new_pgno >= 0x100 &&
+              new_pgno <= 0x899 &&
               (new_subno <= 0x99 || new_subno == VBI_ANY_SUBNO))
           {
             pgno = new_pgno;
@@ -178,7 +178,7 @@ int main(void)
               sprintf(subnos, "%02x", subno);
             mvhline(2, 43, ' ', COLS - 43);
             mvprintw(2, 43, "Looking for %03x.%s", pgno, subnos);
-          } 
+          }
           else
             lf_status = -1;
           lf_update = true;
@@ -229,7 +229,7 @@ int main(void)
   }
   dochttx_ncurses_quit();
   dochttx_vbi_close(vbi);
-  dochttx_locale_quit(); 
+  dochttx_locale_quit();
   return EXIT_SUCCESS;
 }
 

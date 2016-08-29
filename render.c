@@ -38,7 +38,7 @@ static void private_render(vbi_page *pg, int lines)
   char mbs[16];
 
   getsyx(sy, sx);
-  
+
   memset(wcs, 0, sizeof(wcs));
   memset(mbs, 0, sizeof(mbs));
   ch = pg->text;
@@ -57,7 +57,7 @@ static void private_render(vbi_page *pg, int lines)
       if (wcwidth(wcs[0]) != 1 || wcstombs(mbs, wcs, sizeof(mbs)) == (size_t)-1)
         mvaddch(y, x, ACS_CKBOARD);
       else
-        mvprintw(y, x, "%s", mbs); 
+        mvprintw(y, x, "%s", mbs);
     }
   }
   attrset(A_NORMAL);
