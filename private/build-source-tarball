@@ -50,6 +50,7 @@ rm .git*
 private/autogen
 rm -r *.cache
 rm private/build-source-tarball
+mv LICENSE doc/
 cd ..
 tar -czf "$pwd/$name-$version.tar.gz" */
 rm -r "$sourceroot"
