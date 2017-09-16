@@ -19,13 +19,15 @@
  * SOFTWARE.
  */
 
-#include "config.h"
+#define _XOPEN_SOURCE
+/* needed for wcwidth(3) */
 
 #include <wchar.h>
 #include <string.h>
 #include <stdlib.h>
 
 #include "anycurses.h"
+#include "config.h"
 #include "render.h"
 #include "ui.h"
 #include "vbi.h"

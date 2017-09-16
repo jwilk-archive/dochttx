@@ -24,8 +24,6 @@ fi
 
 PKG_CHECK_MODULES([ZVBI], [zvbi-0.2])
 
-AC_DEFINE([_XOPEN_SOURCE], [500], [Define to the level of X/Open that your system supports.])
-
 AC_CONFIG_HEADER([config.h])
 AC_CONFIG_FILES([Makefile])
 AC_OUTPUT
