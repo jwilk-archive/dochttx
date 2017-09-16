@@ -9,7 +9,6 @@ CFLAGS += -Wall -Wextra -Wformat
 CPPFLAGS = @CPPFLAGS@
 LDFLAGS = @LDFLAGS@
 LDLIBS = @LIBS@ @CURSES_LIB@ @ZVBI_LIBS@
-CPPFLAGS = @CPPFLAGS@
 
 .PHONY: all
 all: $(exe_file)
