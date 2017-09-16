@@ -24,11 +24,11 @@ c_files = $(wildcard *.c)
 o_files = $(c_files:%.c=%.o)
 
 CC = @CC@
-CFLAGS = @CFLAGS@ @ZVBI_CFLAGS@
+CFLAGS = @CFLAGS@ @CURSES_CFLAGS@ @ZVBI_CFLAGS@
 CFLAGS += -Wall -Wextra -Wformat
 CPPFLAGS = @CPPFLAGS@
 LDFLAGS = @LDFLAGS@
-LDLIBS = @LIBS@ @CURSES_LIB@ @ZVBI_LIBS@
+LDLIBS = @LIBS@ @CURSES_LIBS@ @ZVBI_LIBS@
 
 .PHONY: all
 all: $(exe_file)
