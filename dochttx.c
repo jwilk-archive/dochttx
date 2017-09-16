@@ -51,7 +51,7 @@ static void show_display_info(vbi_decoder* dec, vbi_pgno pgno, vbi_subno subno)
   mvprintw(4, 43, "Showing page %03x", pgno);
   if (maxsubno == 0)
     printw(", no subpages");
-  else if (maxsubno <= 0x3f7f)
+  else if (maxsubno <= 0x3F7F)
     printw(", subpage %02x of %02x", subno, maxsubno);
 }
 
@@ -149,7 +149,7 @@ int main(void)
           break;
         lf_pos++;
       case KEY_BACKSPACE:
-      case '\x7f':
+      case '\x7F':
       case '\b':
         if (lf_pos == 0)
           break;
