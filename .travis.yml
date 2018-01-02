@@ -1,0 +1,22 @@
+dist: trusty
+sudo: false
+language: c
+compiler:
+- clang
+- gcc
+addons:
+  apt:
+    packages:
+    - autoconf
+    - autoconf-archive
+    - automake
+    - libncursesw5-dev
+    - libzvbi-dev
+script:
+- private/autogen
+- ./configure --prefix ~/.local
+- make
+- make install
+- dochttx; [ $? -eq 1 ]
+
+# vim:ts=2 sts=2 sw=2 et
