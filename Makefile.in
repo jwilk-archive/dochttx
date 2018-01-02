@@ -18,7 +18,7 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-exe_file = dochttx
+exe = dochttx
 h_files = $(wildcard *.h)
 c_files = $(wildcard *.c)
 o_files = $(c_files:%.c=%.o)
@@ -31,17 +31,17 @@ LDFLAGS = @LDFLAGS@
 LDLIBS = @LIBS@ @CURSES_LIBS@ @ZVBI_LIBS@
 
 .PHONY: all
-all: $(exe_file)
+all: $(exe)
 
 .PHONY: clean
 clean:
-	rm -f *.o $(exe_file) Makefile.dep
+	rm -f *.o $(exe) Makefile.dep
 
 .PHONY: distclean
 distclean: clean
 	rm -f config.log config.status Makefile config.h
 
-$(exe_file): $(o_files)
+$(exe): $(o_files)
 	$(CC) $(CFLAGS) $(LDFLAGS) $(^) $(LDLIBS) -o $(@)
 
 Makefile.dep: $(c_files) $(h_files)
