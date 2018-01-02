@@ -25,6 +25,12 @@ CPPFLAGS = @CPPFLAGS@
 LDFLAGS = @LDFLAGS@
 LDLIBS = @LIBS@ @CURSES_LIBS@ @ZVBI_LIBS@
 
+prefix = @prefix@
+exec_prefix = @exec_prefix@
+bindir = @bindir@
+datarootdir = @datarootdir@
+mandir = @mandir@
+
 exe = dochttx
 h_files = $(wildcard *.h)
 c_files = $(wildcard *.c)
@@ -40,6 +46,11 @@ Makefile.dep: $(c_files) $(h_files)
 	$(CC) $(CFLAGS) $(CPPFLAGS) -MM $(c_files) > $(@)
 
 -include Makefile.dep
+
+.PHONY: install
+install: $(exe)
+	install -d $(DESTDIR)$(bindir)
+	install -m755 $(exe) $(DESTDIR)$(bindir)/$(exe)
 
 .PHONY: clean
 clean:
