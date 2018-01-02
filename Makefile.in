@@ -18,11 +18,6 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-exe = dochttx
-h_files = $(wildcard *.h)
-c_files = $(wildcard *.c)
-o_files = $(c_files:%.c=%.o)
-
 CC = @CC@
 CFLAGS = @CFLAGS@ @CURSES_CFLAGS@ @ZVBI_CFLAGS@
 CFLAGS += -Wall -Wextra -Wformat
@@ -30,16 +25,13 @@ CPPFLAGS = @CPPFLAGS@
 LDFLAGS = @LDFLAGS@
 LDLIBS = @LIBS@ @CURSES_LIBS@ @ZVBI_LIBS@
 
+exe = dochttx
+h_files = $(wildcard *.h)
+c_files = $(wildcard *.c)
+o_files = $(c_files:%.c=%.o)
+
 .PHONY: all
 all: $(exe)
-
-.PHONY: clean
-clean:
-	rm -f *.o $(exe) Makefile.dep
-
-.PHONY: distclean
-distclean: clean
-	rm -f config.log config.status Makefile config.h
 
 $(exe): $(o_files)
 	$(CC) $(CFLAGS) $(LDFLAGS) $(^) $(LDLIBS) -o $(@)
@@ -48,5 +40,13 @@ Makefile.dep: $(c_files) $(h_files)
 	$(CC) $(CFLAGS) $(CPPFLAGS) -MM $(c_files) > $(@)
 
 -include Makefile.dep
+
+.PHONY: clean
+clean:
+	rm -f *.o $(exe) Makefile.dep
+
+.PHONY: distclean
+distclean: clean
+	rm -f config.log config.status Makefile config.h
 
 # vim:ts=4 sts=4 tw=4 noet
