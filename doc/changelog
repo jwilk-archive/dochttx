@@ -1,8 +1,9 @@
 dochttx (0.2.6) UNRELEASED; urgency=low
 
+  * Add install target to the makefile.
   * Improve error handling.
 
- -- Jakub Wilk <jwilk@jwilk.net>  Sun, 03 Feb 2013 15:24:13 +0100
+ -- Jakub Wilk <jwilk@jwilk.net>  Tue, 02 Jan 2018 21:43:16 +0100
 
 dochttx (0.2.5) unstable; urgency=low
 
