@@ -17,6 +17,7 @@ script:
 - ./configure --prefix ~/.local
 - make
 - make install
+- cd /
 - dochttx; [ $? -eq 1 ]
 
 # vim:ts=2 sts=2 sw=2 et
