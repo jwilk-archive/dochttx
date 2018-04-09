@@ -10,9 +10,11 @@ addons:
     - autoconf
     - autoconf-archive
     - automake
+    - cppcheck
     - libncursesw5-dev
     - libzvbi-dev
 script:
+- cppcheck --error-exitcode=1 *.c
 - private/autogen
 - ./configure --prefix ~/.local
 - make
