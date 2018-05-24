@@ -1,9 +1,11 @@
 dochttx (0.2.6) UNRELEASED; urgency=low
 
+  * Add the -d option to select input device.
+    https://github.com/jwilk/dochttx/issues/2
   * Add install target to the makefile.
   * Improve error handling.
 
- -- Jakub Wilk <jwilk@jwilk.net>  Tue, 02 Jan 2018 21:43:16 +0100
+ -- Jakub Wilk <jwilk@jwilk.net>  Thu, 24 May 2018 19:03:47 +0200
 
 dochttx (0.2.5) unstable; urgency=low
 
