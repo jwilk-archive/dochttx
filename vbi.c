@@ -42,6 +42,7 @@ struct dochttx_vbi_state *dochttx_vbi_open(char *dev, int region)
   const char *error = NULL;
   do
   {
+    size_t lines;
     vbi = malloc(sizeof(*vbi));
     if (vbi == NULL)
       break;
@@ -58,11 +59,11 @@ struct dochttx_vbi_state *dochttx_vbi_open(char *dev, int region)
     }
     vbi->par = vbi_capture_parameters(vbi->cap);
     vbi->fd = vbi_capture_fd(vbi->cap);
-    vbi->lines = (vbi->par->count[0] + vbi->par->count[1]);
-    vbi->raw = malloc(vbi->lines * vbi->par->bytes_per_line);
+    lines = vbi->par->count[0] + vbi->par->count[1];
+    vbi->raw = malloc(lines * vbi->par->bytes_per_line);
     if (vbi->raw == NULL)
       break;
-    vbi->sliced = malloc(vbi->lines * sizeof(vbi_sliced));
+    vbi->sliced = malloc(lines * sizeof(vbi_sliced));
     if (vbi->sliced == NULL)
       break;
     vbi->tv.tv_sec = 1;
@@ -80,8 +81,9 @@ struct dochttx_vbi_state *dochttx_vbi_open(char *dev, int region)
 int dochttx_vbi_has_data(struct dochttx_vbi_state *vbi)
 {
   int rc;
-  rc = vbi_capture_read(vbi->cap, vbi->raw, vbi->sliced, &vbi->lines, &vbi->ts, &vbi->tv);
-  vbi_decode(vbi->dec, vbi->sliced, vbi->lines, vbi->ts);
+  int lines;
+  rc = vbi_capture_read(vbi->cap, vbi->raw, vbi->sliced, &lines, &vbi->ts, &vbi->tv);
+  vbi_decode(vbi->dec, vbi->sliced, lines, vbi->ts);
   return rc;
 }
 

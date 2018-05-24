@@ -11,7 +11,7 @@ struct dochttx_vbi_state
   vbi_sliced *sliced;
   uint8_t *raw;
   char *err;
-  int lines, fd;
+  int fd;
   double ts;
   struct timeval tv;
 };
