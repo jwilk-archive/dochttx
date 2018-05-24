@@ -18,7 +18,7 @@ struct dochttx_vbi_state
 
 extern short dochttx_vbi_colors[8];
 
-struct dochttx_vbi_state *dochttx_vbi_open(char *, int);
+struct dochttx_vbi_state *dochttx_vbi_open(const char *, int);
 int dochttx_vbi_has_data(struct dochttx_vbi_state *);
 void dochttx_vbi_close(struct dochttx_vbi_state *);
 

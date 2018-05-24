@@ -55,11 +55,32 @@ static void show_display_info(vbi_decoder* dec, vbi_pgno pgno, vbi_subno subno)
     printw(", subpage %02x of %02x", subno, maxsubno);
 }
 
-int main(void)
+void usage(FILE *fp)
 {
+  fprintf(fp, "Usage: dochttx [-d DEVICE]\n");
+}
+
+int main(int argc, char **argv)
+{
+  const char *device = "/dev/vbi0";
+  int opt;
+  while ((opt = getopt(argc, argv, "d:h")) != -1)
+    switch (opt)
+    {
+    case 'd':
+      device = optarg;
+      break;
+    case 'h':
+      usage(stdout);
+      exit(EXIT_SUCCESS);
+    default: /* '?' */
+      usage(stderr);
+      exit(EXIT_FAILURE);
+    }
+
   dochttx_locale_init();
 
-  struct dochttx_vbi_state* vbi = dochttx_vbi_open("/dev/vbi0", 8);
+  struct dochttx_vbi_state* vbi = dochttx_vbi_open(device, 8);
   if (vbi == NULL) {
     return EXIT_FAILURE;
   }
