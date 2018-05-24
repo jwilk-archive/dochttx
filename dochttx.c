@@ -77,6 +77,10 @@ int main(int argc, char **argv)
       usage(stderr);
       exit(EXIT_FAILURE);
     }
+  if (optind != argc) {
+    usage(stderr);
+    exit(EXIT_FAILURE);
+  }
 
   dochttx_locale_init();
 
