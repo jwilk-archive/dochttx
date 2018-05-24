@@ -51,7 +51,13 @@ static void private_render(vbi_page *pg, int lines)
       wcs[0] = ch->unicode;
       if (ch->size > VBI_DOUBLE_SIZE || ch->conceal)
         wcs[0] = L' ';
-      attrset(dochttx_colors[ch->foreground][ch->background]);
+      /* FIXME: Don't hardcode color palette.
+       * Use use zvbi's color_map instead.
+       * */
+      if (ch->foreground >= 8 || ch->background >= 8)
+        attrset(dochttx_colors[7][0]);
+      else
+        attrset(dochttx_colors[ch->foreground][ch->background]);
       if (ch->bold)
         attron(A_BOLD);
       if (ch->flash)
