@@ -13,11 +13,14 @@ addons:
     - cppcheck
     - libncursesw5-dev
     - libzvbi-dev
+install:
+- python -m pip install --user docutils
 script:
 - cppcheck --error-exitcode=1 *.c
 - private/autogen
 - ./configure --prefix ~/.local
 - make
+- private/check-rst
 - make install
 - cd /
 - dochttx; [ $? -eq 1 ]
