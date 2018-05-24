@@ -44,9 +44,9 @@ static void private_render(vbi_page *pg, int lines)
   memset(wcs, 0, sizeof(wcs));
   memset(mbs, 0, sizeof(mbs));
   ch = pg->text;
-  for (y = 0; y < lines; y++)
+  for (y = 0; y < pg->rows && y < lines; y++)
   {
-    for (x = 0; x <= 40; x++, ch++)
+    for (x = 0; x < pg->columns; x++, ch++)
     {
       wcs[0] = ch->unicode;
       if (ch->size > VBI_DOUBLE_SIZE || ch->conceal)
