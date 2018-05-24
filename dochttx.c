@@ -135,6 +135,7 @@ int main(void)
           lf_pos = 1;
         }
         else
+        /* fall through */
       case '.':
         if (lf[5] == '\0')
         {
@@ -148,6 +149,7 @@ int main(void)
         if (lf_pos >= 6)
           break;
         lf_pos++;
+        /* fall through */
       case KEY_BACKSPACE:
       case '\x7F':
       case '\b':
