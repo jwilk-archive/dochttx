@@ -62,6 +62,8 @@ static void private_render(vbi_page *pg, int lines)
         attron(A_BOLD);
       if (ch->flash)
         attron(A_BLINK);
+      if (wcs[0] == 0x01B5) /* Ƶ (Latin capital letter Z with stroke) */
+        wcs[0] = 0x017B;  /* Ż (Latin capital letter Z with dot above) */
       if (wcwidth(wcs[0]) != 1 || wcstombs(mbs, wcs, sizeof(mbs)) == (size_t)-1)
         mvaddch(y, x, ACS_CKBOARD);
       else
