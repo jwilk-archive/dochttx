@@ -82,7 +82,10 @@ static void private_render(vbi_page *pg, int lines)
       {
         /* G1 Block Mosaic Set → braille patterns */
         unsigned int i = wcs[0] - 0xEE00;
-        i &= ~0x20;
+        if (i & 0x20) {
+          attron(A_BOLD);
+          i -= 0x20;
+        }
         if (i >= 0x40)
           i -= 0x20;
         assert(i < ARRAY_LEN(mosaic_to_braille));
