@@ -22,6 +22,7 @@
 #define _XOPEN_SOURCE
 /* needed for wcwidth(3) */
 
+#include <assert.h>
 #include <wchar.h>
 #include <string.h>
 #include <stdlib.h>
@@ -42,6 +43,8 @@ static const wchar_t mosaic_to_braille[] = {
   0x2824, 0x2825, 0x282C, 0x282D, 0x2826, 0x2827, 0x282E, 0x282F,
   0x2834, 0x2835, 0x283C, 0x283D, 0x2836, 0x2837, 0x283E, 0x283F
 };
+
+#define ARRAY_LEN(x) (sizeof x / sizeof x[0])
 
 static void private_render(vbi_page *pg, int lines)
 {
@@ -82,6 +85,7 @@ static void private_render(vbi_page *pg, int lines)
         i &= ~0x20;
         if (i >= 0x40)
           i -= 0x20;
+        assert(i < ARRAY_LEN(mosaic_to_braille));
         wcs[0] = mosaic_to_braille[i];
       }
       if (wcwidth(wcs[0]) != 1 || wcstombs(mbs, wcs, sizeof(mbs)) == (size_t)-1)
