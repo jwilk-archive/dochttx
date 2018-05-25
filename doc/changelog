@@ -1,10 +1,12 @@
 dochttx (0.2.6) UNRELEASED; urgency=low
 
+  * Render G1 Block Mosaic Set as braille patterns.
   * Add the -d option to select input device.
     https://github.com/jwilk/dochttx/issues/2
   * Fix an out-of-bound read.
     https://github.com/jwilk/dochttx/issues/4
   * Improve Polish typography.
+  * Add README.
   * Add install target to the makefile.
   * Improve error handling.
 
