@@ -3,6 +3,8 @@ Overview
 
 **dochttx** is a simple text-mode teletext browser.
 
+Only analog TV is supported at the moment.
+
 Prerequisites
 =============
 
