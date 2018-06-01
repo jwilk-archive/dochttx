@@ -66,7 +66,7 @@ static void private_render(vbi_page *pg, int lines)
       if (ch->size > VBI_DOUBLE_SIZE || ch->conceal)
         wcs[0] = L' ';
       /* FIXME: Don't hardcode color palette.
-       * Use use zvbi's color_map instead.
+       * Use zvbi's color_map instead.
        * */
       if (ch->foreground >= 8 || ch->background >= 8)
         attrset(dochttx_colors[7][0]);
