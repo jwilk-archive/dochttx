@@ -45,7 +45,7 @@ fi
 
 PKG_CHECK_MODULES([ZVBI], [zvbi-0.2])
 
-AC_CONFIG_HEADER([config.h])
+AC_CONFIG_HEADER([autoconf.h])
 AC_CONFIG_FILES([Makefile])
 AC_OUTPUT
 

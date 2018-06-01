@@ -28,7 +28,7 @@
 #include <stdlib.h>
 
 #include "anycurses.h"
-#include "config.h"
+#include "autoconf.h"
 #include "render.h"
 #include "ui.h"
 #include "vbi.h"

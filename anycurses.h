@@ -1,7 +1,7 @@
 #ifndef DOCHTTX_ANYCURSES_H
 #define DOCHTTX_ANYCURSES_H
 
-#include "config.h"
+#include "autoconf.h"
 
 #if defined HAVE_NCURSESW_CURSES_H
 #include <ncursesw/curses.h>
