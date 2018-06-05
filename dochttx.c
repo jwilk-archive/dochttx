@@ -20,6 +20,7 @@
  */
 
 #include <errno.h>
+#include <getopt.h>
 #include <stdbool.h>
 #include <stdlib.h>
 #include <string.h>
@@ -64,7 +65,11 @@ int main(int argc, char **argv)
 {
   const char *device = "/dev/vbi0";
   int opt;
-  while ((opt = getopt(argc, argv, "d:h")) != -1)
+  static struct option long_options[] = {
+    {"help", no_argument, NULL, 'h' },
+    {NULL, 0, NULL, 0}
+  };
+  while ((opt = getopt_long(argc, argv, "d:h", long_options, NULL)) != -1)
     switch (opt)
     {
     case 'd':
