@@ -22,6 +22,7 @@
 #include <errno.h>
 #include <getopt.h>
 #include <stdbool.h>
+#include <limits.h>
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
@@ -61,12 +62,25 @@ void usage(FILE *fp)
   fprintf(fp, "Usage: dochttx [-d DEVICE]\n");
 }
 
+void print_version(void)
+{
+  unsigned int major, minor, micro;
+  printf("%s\n", PACKAGE_STRING);
+  vbi_version(&major, &minor, &micro);
+  printf("+ ZVBI %u.%u.%u\n", major, minor, micro);
+}
+
 int main(int argc, char **argv)
 {
   const char *device = "/dev/vbi0";
   int opt;
+  enum {
+    OPT_DUMMY = CHAR_MAX,
+    OPT_VERSION
+  };
   static struct option long_options[] = {
     {"help", no_argument, NULL, 'h' },
+    {"version", no_argument, NULL, OPT_VERSION },
     {NULL, 0, NULL, 0}
   };
   while ((opt = getopt_long(argc, argv, "d:h", long_options, NULL)) != -1)
@@ -77,6 +91,9 @@ int main(int argc, char **argv)
       break;
     case 'h':
       usage(stdout);
+      exit(EXIT_SUCCESS);
+    case OPT_VERSION:
+      print_version();
       exit(EXIT_SUCCESS);
     default: /* '?' */
       usage(stderr);
