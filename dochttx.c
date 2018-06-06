@@ -19,9 +19,11 @@
  * SOFTWARE.
  */
 
+#include <assert.h>
 #include <errno.h>
 #include <getopt.h>
 #include <limits.h>
+#include <regex.h>
 #include <stdbool.h>
 #include <stdlib.h>
 #include <string.h>
@@ -68,6 +70,29 @@ void print_version(void)
   printf("%s\n", PACKAGE_STRING);
   vbi_version(&major, &minor, &micro);
   printf("+ ZVBI %u.%u.%u\n", major, minor, micro);
+}
+
+int parse_pagespec(const char *pagespec, unsigned int *pgno, unsigned int *subno)
+{
+  int rc;
+  static regex_t regexp;
+  static bool regexp_initialized = false;
+  if (!regexp_initialized)
+  {
+    rc = regcomp(&regexp, "^[1-8][0-9]{2}([.][0-9]{1,2})?$", REG_EXTENDED | REG_NOSUB);
+    assert(rc == 0);
+    regexp_initialized = true;
+  }
+  rc = regexec(&regexp, pagespec, 0, NULL, 0);
+  if (rc == REG_NOMATCH)
+  {
+    *pgno = *subno = 0;
+    return -1;
+  }
+  *subno = VBI_ANY_SUBNO;
+  rc = sscanf(pagespec, "%x.%x", pgno, subno);
+  assert(rc == 1 || rc == 2);
+  return 0;
 }
 
 int main(int argc, char **argv)
@@ -211,12 +236,8 @@ int main(int argc, char **argv)
       case '\n':
       case '\r':
         {
-          unsigned int new_pgno = 0;
-          unsigned int new_subno = VBI_ANY_SUBNO;
-          if (sscanf(lf, "%x.%x", &new_pgno, &new_subno) >= 1 &&
-              new_pgno >= 0x100 &&
-              new_pgno <= 0x899 &&
-              (new_subno <= 0x99 || new_subno == VBI_ANY_SUBNO))
+          unsigned int new_pgno, new_subno;
+          if (parse_pagespec(lf, &new_pgno, &new_subno) >= 0)
           {
             pgno = new_pgno;
             subno = new_subno;
