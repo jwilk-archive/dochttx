@@ -8,6 +8,8 @@ Only analog TV is supported at the moment.
 Prerequisites
 =============
 
+* GNU make
+
 * ncurses_ with wide-character support, i.e. ``libncursesw``
 
 .. _ncurses:
