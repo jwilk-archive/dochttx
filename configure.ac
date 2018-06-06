@@ -24,6 +24,10 @@ AC_INIT([dochttx], [0.3], [jwilk@jwilk.net])
 
 AC_PROG_CC_C99
 
+m4_pattern_forbid(
+    [^PKG_CHECK_MODULES],
+    [undefined macro PKG_CHECK_MODULES; install pkg-config and run private/autogen]
+)
 PKG_CHECK_MODULES(
     [NCURSESW],
     [ncursesw],
