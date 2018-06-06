@@ -30,6 +30,7 @@
 #include <unistd.h>
 
 #include "anycurses.h"
+#include "autoconf.h"
 #include "locale.h"
 #include "render.h"
 #include "ui.h"
