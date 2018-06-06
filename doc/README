@@ -10,6 +10,11 @@ Prerequisites
 
 * GNU make
 
+* pkg-config_
+
+.. _pkg-config:
+   https://www.freedesktop.org/wiki/Software/pkg-config/
+
 * ncurses_ with wide-character support, i.e. ``libncursesw``
 
 .. _ncurses:
