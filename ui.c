@@ -19,7 +19,8 @@
  * SOFTWARE.
  */
 
-#include "anycurses.h"
+#include <curses.h>
+
 #include "ui.h"
 #include "vbi.h"
 

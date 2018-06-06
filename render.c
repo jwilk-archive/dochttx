@@ -27,7 +27,8 @@
 #include <string.h>
 #include <wchar.h>
 
-#include "anycurses.h"
+#include <curses.h>
+
 #include "autoconf.h"
 #include "render.h"
 #include "ui.h"

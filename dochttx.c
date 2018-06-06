@@ -29,7 +29,8 @@
 #include <string.h>
 #include <unistd.h>
 
-#include "anycurses.h"
+#include <curses.h>
+
 #include "autoconf.h"
 #include "locale.h"
 #include "render.h"
