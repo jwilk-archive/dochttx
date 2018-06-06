@@ -55,6 +55,8 @@ static void show_panel(vbi_decoder* dec, unsigned int pgno, unsigned int subno)
   mvprintw(4, 43, "Showing page %03x", pgno);
   if (maxsubno == 0)
     printw(", no subpages");
+  else if (maxsubno == 0xFFFE || maxsubno == 0xFFFF)
+    printw(", subpage %02x", subno);
   else if (maxsubno <= 0x3F7F)
     printw(", subpage %02x of %02x", subno, (unsigned int) maxsubno);
 }
