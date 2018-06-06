@@ -4,6 +4,7 @@
 /Makefile.dep
 /autoconf.h
 /autoconf.h.in
+/autoconf.h.in~
 /autom4te.cache/
 /config.log
 /config.status
