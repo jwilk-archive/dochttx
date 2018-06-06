@@ -47,7 +47,7 @@ static void intercept(vbi_event *ev, void *dec)
   np_drawn = false;
 }
 
-static void show_panel(vbi_decoder* dec, vbi_pgno pgno, vbi_subno subno)
+static void show_panel(vbi_decoder* dec, unsigned int pgno, unsigned int subno)
 {
   vbi_subno maxsubno;
   vbi_classify_page(dec, pgno, &maxsubno, NULL);
@@ -56,7 +56,7 @@ static void show_panel(vbi_decoder* dec, vbi_pgno pgno, vbi_subno subno)
   if (maxsubno == 0)
     printw(", no subpages");
   else if (maxsubno <= 0x3F7F)
-    printw(", subpage %02x of %02x", subno, maxsubno);
+    printw(", subpage %02x of %02x", subno, (unsigned int) maxsubno);
 }
 
 void usage(FILE *fp)
