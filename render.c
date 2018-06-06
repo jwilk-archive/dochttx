@@ -23,9 +23,9 @@
 /* needed for wcwidth(3) */
 
 #include <assert.h>
-#include <wchar.h>
-#include <string.h>
 #include <stdlib.h>
+#include <string.h>
+#include <wchar.h>
 
 #include "anycurses.h"
 #include "autoconf.h"

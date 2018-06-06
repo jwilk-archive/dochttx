@@ -21,17 +21,17 @@
 
 #include <errno.h>
 #include <getopt.h>
-#include <stdbool.h>
 #include <limits.h>
+#include <stdbool.h>
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
 
 #include "anycurses.h"
+#include "locale.h"
+#include "render.h"
 #include "ui.h"
 #include "vbi.h"
-#include "render.h"
-#include "locale.h"
 
 static vbi_pgno np_pgno = 0;
 static vbi_subno np_subno = 0;

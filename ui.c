@@ -20,8 +20,8 @@
  */
 
 #include "anycurses.h"
-#include "vbi.h"
 #include "ui.h"
+#include "vbi.h"
 
 int dochttx_colors[8][8];
 

@@ -20,9 +20,9 @@
  */
 
 #include <errno.h>
+#include <stdbool.h>
 #include <stdlib.h>
 #include <string.h>
-#include <stdbool.h>
 
 #include "anycurses.h"
 #include "vbi.h"
