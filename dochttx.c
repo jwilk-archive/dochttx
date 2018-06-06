@@ -47,7 +47,7 @@ static void intercept(vbi_event *ev, void *dec)
   np_drawn = false;
 }
 
-static void show_display_info(vbi_decoder* dec, vbi_pgno pgno, vbi_subno subno)
+static void show_panel(vbi_decoder* dec, vbi_pgno pgno, vbi_subno subno)
 {
   vbi_subno maxsubno;
   vbi_classify_page(dec, pgno, &maxsubno, NULL);
@@ -282,7 +282,7 @@ int main(int argc, char **argv)
     if (!drawn && vbi_is_cached(vbi->dec, pgno, subno))
     {
       vbi_subno tmp_subno = dochttx_vbi_render(vbi->dec, pgno, subno, 25);
-      show_display_info(vbi->dec, pgno, tmp_subno);
+      show_panel(vbi->dec, pgno, tmp_subno);
       drawn = true;
     }
     else if (!np_drawn)
@@ -292,7 +292,7 @@ int main(int argc, char **argv)
         lines = 25;
       dochttx_vbi_render(vbi->dec, np_pgno, np_subno, lines);
       if (lines == 25)
-        show_display_info(vbi->dec, np_pgno, np_subno);
+        show_panel(vbi->dec, np_pgno, np_subno);
       np_drawn = true;
     }
     doupdate();
