@@ -22,7 +22,7 @@
 
 set -e -u
 
-here=$(dirname "$0")
+here=${0%/*}
 here=${here#./}
 root="$here/../"
 root=${root#private/../}
