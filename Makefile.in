@@ -58,7 +58,7 @@ clean:
 
 .PHONY: distclean
 distclean: clean
-	rm -f config.log config.status Makefile config.h
+	rm -f config.log config.status Makefile autoconf.h
 
 .error = GNU make is required
 
