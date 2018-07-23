@@ -19,8 +19,10 @@
  * SOFTWARE.
  */
 
+#ifndef _XOPEN_SOURCE
 #define _XOPEN_SOURCE
 /* needed for wcwidth(3) */
+#endif
 
 #include <assert.h>
 #include <stdlib.h>
