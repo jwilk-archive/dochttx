@@ -83,7 +83,14 @@ int parse_pagespec(const char *pagespec, unsigned int *pgno, unsigned int *subno
   static bool regexp_initialized = false;
   if (!regexp_initialized)
   {
-    rc = regcomp(&regexp, "^[1-8][0-9]{2}([.][0-9]{1,2})?$", REG_EXTENDED | REG_NOSUB);
+    rc = regcomp(&regexp,
+        /* we don't use ranges such as 1-8 here,
+         * they're undefined outside the POSIX locale */
+        "^[12345678]"
+        "[0123456789]{2}"
+        "([.][0123456789]{1,2})?$",
+        REG_EXTENDED | REG_NOSUB
+      );
     assert(rc == 0);
     regexp_initialized = true;
   }
