@@ -63,12 +63,12 @@ static void show_panel(vbi_decoder* dec, unsigned int pgno, unsigned int subno)
     printw(", subpage %02x of %02x", subno, (unsigned int) maxsubno);
 }
 
-void usage(FILE *fp)
+static void usage(FILE *fp)
 {
   fprintf(fp, "Usage: dochttx [-d DEVICE]\n");
 }
 
-void print_version(void)
+static void print_version(void)
 {
   unsigned int major, minor, micro;
   printf("%s\n", PACKAGE_STRING);
@@ -76,7 +76,7 @@ void print_version(void)
   printf("+ ZVBI %u.%u.%u\n", major, minor, micro);
 }
 
-int parse_pagespec(const char *pagespec, unsigned int *pgno, unsigned int *subno)
+static int parse_pagespec(const char *pagespec, unsigned int *pgno, unsigned int *subno)
 {
   int rc;
   static regex_t regexp;
