@@ -37,7 +37,7 @@ bool dochttx_locale_init(void)
   return dochttx_charset != NULL;
 }
 
-void dochttx_locale_quit()
+void dochttx_locale_quit(void)
 {
   free(dochttx_charset);
 }
