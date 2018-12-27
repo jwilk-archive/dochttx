@@ -15,8 +15,8 @@ dochttx (0.3) UNRELEASED; urgency=low
 dochttx (0.2.5) unstable; urgency=low
 
   * Use autoconf for the build system.
-  * Wide-characters support in the NCURSES library is no longer required
-    (though it's still strongly recommended).
+  * Stop requiring wide-character support in the NCURSES library.
+    (It's still strongly recommended.)
   * Improve error handling.
 
  -- Jakub Wilk <jwilk@jwilk.net>  Thu, 31 Jan 2013 21:39:09 +0100
@@ -37,8 +37,7 @@ dochttx (0.2.3) unstable; urgency=low
 
 dochttx (0.2.2) unstable; urgency=low
 
-  * Fix a character converting routine which prevented correct display on
-    UTF-8 terminals.
+  * Fix character conversion for UTF-8 terminals.
 
  -- Jakub Wilk <jwilk@jwilk.net>  Sat,  2 Sep 2006 19:28:55 +0200
 
