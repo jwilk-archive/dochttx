@@ -70,6 +70,18 @@ static void usage(FILE *fp)
   fprintf(fp, "Usage: dochttx [-d DEVICE]\n");
 }
 
+static void long_usage(FILE *fp)
+{
+  usage(fp);
+  printf("\n"
+    "Options:\n"
+    "  -d DEVICE   VBI device to use (default: %s)\n"
+    "  -h, --help  show this help message and exit\n"
+    "  --version   show version information and exit\n",
+    default_device
+  );
+}
+
 static void print_version(void)
 {
   unsigned int major, minor, micro;
@@ -128,7 +140,7 @@ int main(int argc, char **argv)
       device = optarg;
       break;
     case 'h':
-      usage(stdout);
+      long_usage(stdout);
       exit(EXIT_SUCCESS);
     case OPT_VERSION:
       print_version();
