@@ -37,6 +37,8 @@
 #include "ui.h"
 #include "vbi.h"
 
+static const char default_device[] = "/dev/vbi0";
+
 static vbi_pgno np_pgno = 0;
 static vbi_subno np_subno = 0;
 static bool np_drawn = true;
@@ -108,7 +110,7 @@ static int parse_pagespec(const char *pagespec, unsigned int *pgno, unsigned int
 
 int main(int argc, char **argv)
 {
-  const char *device = "/dev/vbi0";
+  const char *device = default_device;
   int opt;
   enum {
     OPT_DUMMY = CHAR_MAX,
