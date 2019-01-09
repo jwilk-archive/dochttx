@@ -7,10 +7,11 @@ dochttx (0.3) UNRELEASED; urgency=low
     https://github.com/jwilk/dochttx/issues/4
   * Improve Polish typography.
   * Add README.
+  * Add manual page.
   * Add install target to the makefile.
   * Improve error handling.
 
- -- Jakub Wilk <jwilk@jwilk.net>  Tue, 05 Jun 2018 15:45:26 +0200
+ -- Jakub Wilk <jwilk@jwilk.net>  Wed, 09 Jan 2019 21:30:49 +0100
 
 dochttx (0.2.5) unstable; urgency=low
 
