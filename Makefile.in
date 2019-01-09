@@ -31,15 +31,14 @@ bindir = @bindir@
 datarootdir = @datarootdir@
 mandir = @mandir@
 
-exe = dochttx
 h_files = $(wildcard *.h)
 c_files = $(wildcard *.c)
 o_files = $(c_files:%.c=%.o)
 
 .PHONY: all
-all: $(exe)
+all: dochttx
 
-$(exe): $(o_files)
+dochttx: $(o_files)
 	$(CC) $(CFLAGS) $(LDFLAGS) $(^) $(LDLIBS) -o $(@)
 
 Makefile.dep: $(c_files) $(h_files)
@@ -48,13 +47,13 @@ Makefile.dep: $(c_files) $(h_files)
 -include Makefile.dep
 
 .PHONY: install
-install: $(exe)
+install: dochttx
 	install -d $(DESTDIR)$(bindir)
-	install -m755 $(exe) $(DESTDIR)$(bindir)/$(exe)
+	install -m755 $(<) $(DESTDIR)$(bindir)/
 
 .PHONY: clean
 clean:
-	rm -f *.o $(exe) Makefile.dep
+	rm -f *.o dochttx Makefile.dep
 
 .PHONY: distclean
 distclean: clean
