@@ -4,3 +4,4 @@ set -e -x
 dch -m -v "$version" -u low -c doc/changelog
 export version
 perl -pi -e 's/(AC_INIT[(]\[\S+\],) \[[0-9.]+\]/\1 [$ENV{version}]/' configure.ac
+perl -pi -e 's/^[.]TH .* "dochttx \K[0-9.]+/$ENV{version}/' doc/*.1
