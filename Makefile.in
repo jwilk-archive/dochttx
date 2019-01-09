@@ -50,6 +50,8 @@ Makefile.dep: $(c_files) $(h_files)
 install: dochttx
 	install -d $(DESTDIR)$(bindir)
 	install -m755 $(<) $(DESTDIR)$(bindir)/
+	install -d $(DESTDIR)$(PREFIX)$(mandir)/man1
+	install -m644 doc/$(<).1 $(DESTDIR)$(PREFIX)$(mandir)/man1/
 
 .PHONY: clean
 clean:

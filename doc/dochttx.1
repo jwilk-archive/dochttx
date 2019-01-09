@@ -1,0 +1,23 @@
+.\" Copyright © 2019 Jakub Wilk <jwilk@jwilk.net>
+.\" SPDX-License-Identifier: MIT
+
+.TH DOCHTTX "1" "2019-01-09" "dochttx 0.3" ""
+.SH NAME
+dochttx \- text mode teletext browser
+.SH SYNOPSIS
+.BR dochttx " [\fB\-d\fR\ \fIDEVICE\fP]"
+.SH OPTIONS
+.TP
+.B \-d \fIDEVICE\fP
+Use this VBI device.
+The default is \fB/dev/vbi0\fP.
+.TP
+.BR \-h ", " \-\-help
+Show help message and exit.
+.TP
+.B \-\-version
+Show version information and exit.
+.SH CONFORMING TO
+.UR https://www.etsi.org/\:deliver/\:etsi_en/\:300700_300799/\:300706/\:01.02.01_60/\:en_300706v010201p.pdf
+ETSI EN 300 706 V1.2.1 (Enhanced Teletext specification)
+.UE
