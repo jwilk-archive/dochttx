@@ -20,9 +20,7 @@ script:
 - private/autogen
 - ./configure --prefix ~/.local || cat config.log /fail
 - make
-- diff -u
-    <(./dochttx --version | head -n1)
-    <(IFS=' ()' read name ver _ < doc/changelog; echo "$name $ver")
+- private/check-versions
 - private/check-rst
 - make install
 - cd /
