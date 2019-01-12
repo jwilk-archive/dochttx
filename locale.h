@@ -3,7 +3,7 @@
 
 extern char* dochttx_charset;
 
-bool dochttx_locale_init(void);
+int dochttx_locale_init(void);
 void dochttx_locale_quit(void);
 
 #endif

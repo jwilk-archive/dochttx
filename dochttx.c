@@ -137,7 +137,11 @@ int main(int argc, char **argv)
     exit(EXIT_FAILURE);
   }
 
-  dochttx_locale_init();
+  int rc = dochttx_locale_init();
+  if (rc < 0) {
+    perror("dochttx: locale initialization failed");
+    return EXIT_FAILURE;
+  }
 
   struct dochttx_vbi_state* vbi = dochttx_vbi_open(device, 8);
   if (vbi == NULL) {

@@ -12,12 +12,14 @@
 
 char* dochttx_charset = NULL;
 
-bool dochttx_locale_init(void)
+int dochttx_locale_init(void)
 {
   if (setlocale(LC_ALL, "") == NULL)
-    return false;
+    return -1;
   dochttx_charset = strdup(nl_langinfo(CODESET));
-  return dochttx_charset != NULL;
+  if (dochttx_charset == NULL)
+    return -1;
+  return 0;
 }
 
 void dochttx_locale_quit(void)
