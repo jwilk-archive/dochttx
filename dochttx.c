@@ -8,8 +8,10 @@
 #include <limits.h>
 #include <regex.h>
 #include <stdbool.h>
+#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <sys/select.h>
 #include <unistd.h>
 
 #include <curses.h>

@@ -14,10 +14,8 @@
 
 #include <curses.h>
 
-#include "autoconf.h"
 #include "render.h"
 #include "ui.h"
-#include "vbi.h"
 
 static const wchar_t mosaic_to_braille[] = {
   0x2800, 0x2801, 0x2808, 0x2809, 0x2802, 0x2803, 0x280A, 0x280B,
