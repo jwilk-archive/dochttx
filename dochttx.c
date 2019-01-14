@@ -18,6 +18,7 @@
 
 #include "autoconf.h"
 #include "locale.h"
+#include "region.h"
 #include "render.h"
 #include "ui.h"
 #include "vbi.h"
@@ -52,7 +53,7 @@ static void show_panel(vbi_decoder* dec, unsigned int pgno, unsigned int subno)
 
 static void usage(FILE *fp)
 {
-  fprintf(fp, "Usage: dochttx [-d DEVICE]\n");
+  fprintf(fp, "Usage: dochttx [-d DEVICE] [-l LANG[,LANG...]]\n");
 }
 
 static void long_usage(FILE *fp)
@@ -60,9 +61,11 @@ static void long_usage(FILE *fp)
   usage(fp);
   printf("\n"
     "Options:\n"
-    "  -d DEVICE   VBI device to use (default: %s)\n"
-    "  -h, --help  show this help message and exit\n"
-    "  --version   show version information and exit\n",
+    "  -d DEVICE          VBI device to use (default: %s)\n"
+    "  -l LANG[,LANG...]  use character sets for these languages\n"
+    "                     (default: locale-dependent)\n"
+    "  -h, --help         show this help message and exit\n"
+    "  --version          show version information and exit\n",
     default_device
   );
 }
@@ -107,6 +110,7 @@ static int parse_pagespec(const char *pagespec, unsigned int *pgno, unsigned int
 
 int main(int argc, char **argv)
 {
+  int region = -1;
   const char *device = default_device;
   int opt;
   enum {
@@ -118,11 +122,19 @@ int main(int argc, char **argv)
     {"version", no_argument, NULL, OPT_VERSION },
     {NULL, 0, NULL, 0}
   };
-  while ((opt = getopt_long(argc, argv, "d:h", long_options, NULL)) != -1)
+  while ((opt = getopt_long(argc, argv, "d:l:h", long_options, NULL)) != -1)
     switch (opt)
     {
     case 'd':
       device = optarg;
+      break;
+    case 'l':
+      region = dochttx_region_for_lang(optarg);
+      if (region < 0) {
+        errno = EINVAL;
+        perror("dochttx: -l");
+        exit(EXIT_FAILURE);
+      }
       break;
     case 'h':
       long_usage(stdout);
@@ -145,7 +157,13 @@ int main(int argc, char **argv)
     return EXIT_FAILURE;
   }
 
-  struct dochttx_vbi_state* vbi = dochttx_vbi_open(device, 8);
+  if (region < 0)
+    region = dochttx_region_for_locale();
+  if (region < 0)
+    region = dochttx_region_for_lang("en");
+  assert(region >= 0);
+
+  struct dochttx_vbi_state* vbi = dochttx_vbi_open(device, region);
   if (vbi == NULL) {
     return EXIT_FAILURE;
   }

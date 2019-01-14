@@ -48,7 +48,6 @@ int dochttx_locale_init(void)
   locale = setlocale(LC_TIME, "");
   if (locale == NULL)
     return -1;
-  abort();
   return 0;
 }
 
