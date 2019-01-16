@@ -15,6 +15,7 @@ addons:
     - python3-pip
 install:
 - python3 -m pip install --user docutils
+- python3 -m pip install --user pycparser
 script:
 - dpkg-parsechangelog -ldoc/changelog --all 2>&1 >/dev/null | { ! grep .; }
 - cppcheck --error-exitcode=1 *.c
@@ -23,6 +24,8 @@ script:
 - make
 - private/check-versions
 - private/check-rst
+- private/gen-region-table <(svn cat https://svn.code.sf.net/p/zapping/svn/trunk/vbi/src/lang.c) > region-table.c
+- git diff --exit-code
 - make install
 - cd /
 - dochttx --version
