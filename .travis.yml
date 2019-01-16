@@ -12,8 +12,9 @@ addons:
     - cppcheck
     - libncursesw5-dev
     - libzvbi-dev
+    - python3-pip
 install:
-- python -m pip install --user docutils
+- python3 -m pip install --user docutils
 script:
 - dpkg-parsechangelog -ldoc/changelog --all 2>&1 >/dev/null | { ! grep .; }
 - cppcheck --error-exitcode=1 *.c
