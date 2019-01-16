@@ -7,12 +7,103 @@ dochttx \- text mode teletext browser
 .SH SYNOPSIS
 .SY dochttx
 .OP \-d DEVICE
+.OP \-l LANG\fR[,\fPLANG\fR\&.\|.\|.\&]
 .YS
 .SH OPTIONS
 .TP
 .B \-d \fIDEVICE\fP
 Use this VBI device.
 The default is \fB/dev/vbi0\fP.
+.TP
+.B \-l \fILANG\fR[,\fILANG\fR\&.\|.\|.\&]
+Use character sets appropriate for the selected languages:
+.RS
+.TP
+.B ar
+Arabic
+.TP
+.B bg
+Bulgarian
+.TP
+.B cs
+Czech
+.TP
+.B de
+German
+.TP
+.B el
+Greek
+.TP
+.B en
+English
+.TP
+.B es
+Spanish
+.TP
+.B et
+Estonian
+.TP
+.B fi
+Finnish
+.TP
+.B fr
+French
+.TP
+.B he
+Hebrew
+.TP
+.B hr-Cyrl
+Croatian (Cyrillic)
+.TP
+.B hr-Latn
+Croatian (Latin)
+.TP
+.B hu
+Hungarian
+.TP
+.B it
+Italian
+.TP
+.B lt
+Lithuanian
+.TP
+.B pl
+Polish
+.TP
+.B pt
+Portuguese
+.TP
+.B ro
+Romanian
+.TP
+.B ru
+Russian
+.TP
+.B sk
+Slovak
+.TP
+.B sl
+Slovenian
+.TP
+.B sr-Cyrl
+Serbian (Cyrillic)
+.TP
+.B sr-Latn
+Serbian (Latin)
+.TP
+.B sv
+Swedish
+.TP
+.B tr
+Turkish
+.TP
+.B uk
+Ukrainian
+.RE
+.IP
+The default depends on the
+.B LC_CTYPE
+locale category.
 .TP
 .BR \-h ", " \-\-help
 Show help message and exit.
@@ -23,3 +114,5 @@ Show version information and exit.
 .UR https://www.etsi.org/\:deliver/\:etsi_en/\:300700_300799/\:300706/\:01.02.01_60/\:en_300706v010201p.pdf
 ETSI EN 300 706 V1.2.1 (Enhanced Teletext specification)
 .UE
+.SH SEE ALSO
+.BR locale (7)
