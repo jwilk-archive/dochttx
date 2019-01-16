@@ -3,6 +3,9 @@ dochttx (0.3) UNRELEASED; urgency=low
   * Render G1 Block Mosaic Set as braille patterns.
   * Add the -d option to select input device.
     https://github.com/jwilk/dochttx/issues/2
+  * Add the -l option to select character set(s).
+    Use LC_CTYPE to choose character set automatically.
+    https://github.com/jwilk/dochttx/issues/3
   * Fix an out-of-bound read.
     https://github.com/jwilk/dochttx/issues/4
   * Improve Polish typography.
@@ -11,7 +14,7 @@ dochttx (0.3) UNRELEASED; urgency=low
   * Add install target to the makefile.
   * Improve error handling.
 
- -- Jakub Wilk <jwilk@jwilk.net>  Wed, 09 Jan 2019 21:30:49 +0100
+ -- Jakub Wilk <jwilk@jwilk.net>  Wed, 16 Jan 2019 23:02:55 +0100
 
 dochttx (0.2.5) unstable; urgency=low
 
