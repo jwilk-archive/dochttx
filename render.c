@@ -17,19 +17,6 @@
 #include "render.h"
 #include "ui.h"
 
-static const wchar_t mosaic_to_braille[] = {
-    0x2800, 0x2801, 0x2808, 0x2809, 0x2802, 0x2803, 0x280A, 0x280B,
-    0x2810, 0x2811, 0x2818, 0x2819, 0x2812, 0x2813, 0x281A, 0x281B,
-    0x2804, 0x2805, 0x280C, 0x280D, 0x2806, 0x2807, 0x280E, 0x280F,
-    0x2814, 0x2815, 0x281C, 0x281D, 0x2816, 0x2817, 0x281E, 0x281F,
-    0x2820, 0x2821, 0x2828, 0x2829, 0x2822, 0x2823, 0x282A, 0x282B,
-    0x2830, 0x2831, 0x2838, 0x2839, 0x2832, 0x2833, 0x283A, 0x283B,
-    0x2824, 0x2825, 0x282C, 0x282D, 0x2826, 0x2827, 0x282E, 0x282F,
-    0x2834, 0x2835, 0x283C, 0x283D, 0x2836, 0x2837, 0x283E, 0x283F
-};
-
-#define ARRAY_LEN(x) (sizeof x / sizeof x[0])
-
 static void private_render(vbi_page *pg, int lines)
 {
     int x, y, sx = -1, sy = 1;
@@ -62,15 +49,22 @@ static void private_render(vbi_page *pg, int lines)
                 wcs[0] = 0x017B;  /* Ż (Latin capital letter Z with dot above) */
             else if (wcs[0] >= 0xEE00 && wcs[0] < 0xEE80) {
                 /* G1 Block Mosaic Set → braille patterns */
-                unsigned int i = wcs[0] - 0xEE00;
+                int i = wcs[0] - 0xEE00;
                 if (i & 0x20) {
                     attron(A_BOLD);
                     i -= 0x20;
                 }
                 if (i >= 0x40)
                     i -= 0x20;
-                assert(i < ARRAY_LEN(mosaic_to_braille));
-                wcs[0] = mosaic_to_braille[i];
+                assert(i >= 0);
+                assert(i < (1 << 6));
+                wchar_t c = 0x2800;
+                for (int x = 0; x < 2; x++)
+                for (int y = 0; y < 3; y++)
+                    c |= !!(i & (1 << (2 * y + x))) << (3 * x + y);
+                assert(c >= 0x2800);
+                assert(c <= 0x283F);
+                wcs[0] = c;
             }
             if (wcwidth(wcs[0]) != 1 || wcstombs(mbs, wcs, sizeof(mbs)) == (size_t)-1)
                 mvaddch(y, x, ACS_CKBOARD);
