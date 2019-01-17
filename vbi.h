@@ -5,15 +5,15 @@
 
 struct dochttx_vbi_state
 {
-  vbi_decoder *dec;
-  vbi_capture *cap;
-  vbi_raw_decoder *par;
-  vbi_sliced *sliced;
-  uint8_t *raw;
-  char *err;
-  int fd;
-  double ts;
-  struct timeval tv;
+    vbi_decoder *dec;
+    vbi_capture *cap;
+    vbi_raw_decoder *par;
+    vbi_sliced *sliced;
+    uint8_t *raw;
+    char *err;
+    int fd;
+    double ts;
+    struct timeval tv;
 };
 
 extern short dochttx_vbi_colors[8];
@@ -24,4 +24,4 @@ void dochttx_vbi_close(struct dochttx_vbi_state *);
 
 #endif
 
-// vim:ts=2 sts=2 sw=2 et
+// vim:ts=4 sts=4 sw=4 et
