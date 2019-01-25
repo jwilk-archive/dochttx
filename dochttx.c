@@ -273,7 +273,7 @@ int main(int argc, char **argv)
                         if (subno != VBI_ANY_SUBNO)
                             sprintf(subnos, "%02x", subno);
                         mvhline(2, 43, ' ', COLS - 43);
-                        mvprintw(2, 43, "Looking for %03x.%s", pgno, subnos);
+                        mvprintw(2, 43, "Looking for %03X.%s", pgno, subnos);
                     }
                     else
                         lf_status = -1;
