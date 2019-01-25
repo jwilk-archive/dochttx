@@ -89,7 +89,7 @@ static int parse_pagespec(const char *pagespec, unsigned int *pgno, unsigned int
                   * they're undefined outside the POSIX locale */
                 "^[12345678]"
                 "[0123456789]{2}"
-                "([.][0123456789]{1,2})?$",
+                "([.]([0123456789]|[01234567][0123456789]))?$",
                 REG_EXTENDED | REG_NOSUB
             );
         assert(rc == 0);
