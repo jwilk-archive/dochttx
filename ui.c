@@ -26,7 +26,9 @@ static void color_setup(void)
 void dochttx_ncurses_init(void)
 {
     initscr();
-    raw(); noecho(); nonl();
+    raw();
+    noecho();
+    nonl();
     intrflush(NULL, FALSE);
     keypad(stdscr, TRUE);
     timeout(500);
