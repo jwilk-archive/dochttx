@@ -192,6 +192,7 @@ int main(int argc, char **argv)
         fd_set rdfs;
         FD_ZERO(&rdfs);
         FD_SET(STDIN_FILENO, &rdfs);
+        assert(vbi->fd >= 0);
         FD_SET(vbi->fd, &rdfs);
         int rs = select(vbi->fd+1, &rdfs, NULL, NULL, &tv);
         if (rs == -1) {
