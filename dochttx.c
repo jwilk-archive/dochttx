@@ -88,7 +88,7 @@ static int parse_pagespec(const char *pagespec, unsigned int *pgno, unsigned int
                 /* we don't use ranges such as 1-8 here,
                   * they're undefined outside the POSIX locale */
                 "^[12345678]"
-                "[0123456789]{2}"
+                "[0123456789abcdefABCDEF]{2}"
                 "([.]([0123456789]|[01234567][0123456789]))?$",
                 REG_EXTENDED | REG_NOSUB
             );
@@ -223,6 +223,10 @@ int main(int argc, char **argv)
                     lf_pos++;
                 lf_update = true;
                 break;
+            case 'a': case 'b': case 'c': case 'd': case 'e': case 'f':
+                chr = chr - 'a' + 'A';
+                /* fall through */
+            case 'A': case 'B': case 'C': case 'D': case 'E': case 'F':
             case '0': case '1': case '2': case '3': case '4':
             case '5': case '6': case '7': case '8': case '9':
                 if (lf_status == 2) {
