@@ -8,13 +8,15 @@ dochttx (0.3) UNRELEASED; urgency=low
     https://github.com/jwilk/dochttx/issues/3
   * Fix an out-of-bound read.
     https://github.com/jwilk/dochttx/issues/4
+  * Allow hex digits in page numbers.
+  * Don't allow subpages 80 and above.
   * Improve Polish typography.
   * Add README.
   * Add manual page.
   * Add install target to the makefile.
   * Improve error handling.
 
- -- Jakub Wilk <jwilk@jwilk.net>  Wed, 16 Jan 2019 23:02:55 +0100
+ -- Jakub Wilk <jwilk@jwilk.net>  Fri, 25 Jan 2019 17:46:16 +0100
 
 dochttx (0.2.5) unstable; urgency=low
 
