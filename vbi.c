@@ -7,20 +7,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include <curses.h>
-
 #include "vbi.h"
-
-short dochttx_vbi_colors[8] = {
-    COLOR_BLACK,
-    COLOR_RED,
-    COLOR_GREEN,
-    COLOR_YELLOW,
-    COLOR_BLUE,
-    COLOR_MAGENTA,
-    COLOR_CYAN,
-    COLOR_WHITE
-};
 
 struct dochttx_vbi_state *dochttx_vbi_open(const char *dev, int region)
 {

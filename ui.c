@@ -7,7 +7,6 @@
 #include <curses.h>
 
 #include "ui.h"
-#include "vbi.h"
 
 int dochttx_colors[8][8];
 
@@ -18,7 +17,7 @@ static void color_setup(void)
     u = 1;
     for (i = 0; i < 8; i++)
     for (j = 0; j < 8; j++, u++) {
-        init_pair(u, dochttx_vbi_colors[i], dochttx_vbi_colors[j]);
+        init_pair(u, i, j);
         dochttx_colors[i][j] = COLOR_PAIR(u);
     }
 }
