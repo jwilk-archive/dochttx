@@ -8,6 +8,7 @@
 #endif
 
 #include <assert.h>
+#include <limits.h>
 #include <stdlib.h>
 #include <string.h>
 #include <wchar.h>
@@ -16,6 +17,32 @@
 
 #include "render.h"
 #include "ui.h"
+
+static int get_curses_color(const vbi_page *pg, int n, int fallback)
+{
+    const int color_map_size = sizeof pg->color_map / sizeof pg->color_map[0];
+    if (n < 0 || n >= color_map_size) {
+        assert(fallback >= 0);
+        assert(fallback < 8);
+        return fallback;
+    }
+    vbi_rgba rgb = pg->color_map[n];
+    int min_d2 = INT_MAX;
+    int j = -1;
+    for (int i = 0; i < 8; i++) {
+        int dr = (rgb & 0xFF) - (i & 1 ? 0xFF : 0);
+        int dg = ((rgb >> 8) & 0xFF) - (i & 2 ? 0xFF : 0);
+        int db = ((rgb >> 16) & 0xFF) - (i & 4 ? 0xFF : 0);
+        int d2 = dr * dr + dg * dg + db * db;
+        if (d2 < min_d2) {
+            min_d2 = d2;
+            j = i;
+        }
+    }
+    assert(j >= 0);
+    assert(j < 8);
+    return j;
+}
 
 static void private_render(vbi_page *pg, int lines)
 {
@@ -34,13 +61,9 @@ static void private_render(vbi_page *pg, int lines)
             wcs[0] = ch->unicode;
             if (ch->size > VBI_DOUBLE_SIZE || ch->conceal)
                 wcs[0] = L' ';
-            /* FIXME: Don't hardcode color palette.
-              * Use zvbi's color_map instead.
-              * */
-            if (ch->foreground >= 8 || ch->background >= 8)
-                attrset(dochttx_colors[7][0]);
-            else
-                attrset(dochttx_colors[ch->foreground][ch->background]);
+            int fg_color = get_curses_color(pg, ch->foreground, 7);
+            int bg_color = get_curses_color(pg, ch->background, 0);
+            attrset(dochttx_colors[fg_color][bg_color]);
             if (ch->bold)
                 attron(A_BOLD);
             if (ch->flash)
