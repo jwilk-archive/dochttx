@@ -23,7 +23,7 @@ dochttx (0.3) UNRELEASED; urgency=low
 dochttx (0.2.5) unstable; urgency=low
 
   * Use autoconf for the build system.
-  * Stop requiring wide-character support in the NCURSES library.
+  * Stop requiring wide-character support in the ncurses library.
     (It's still strongly recommended.)
   * Improve error handling.
 
