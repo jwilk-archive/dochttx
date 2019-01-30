@@ -14,11 +14,13 @@ dochttx (0.3) UNRELEASED; urgency=low
   * Don't allow subpages 80 and above.
   * Improve Polish typography.
   * Add README.
+  * Put license into a separate file.
   * Add manual page.
+  * Require ncurses with wide-character support
   * Add install target to the makefile.
   * Improve error handling.
 
- -- Jakub Wilk <jwilk@jwilk.net>  Sat, 26 Jan 2019 20:35:44 +0100
+ -- Jakub Wilk <jwilk@jwilk.net>  Thu, 31 Jan 2019 00:58:47 +0100
 
 dochttx (0.2.5) unstable; urgency=low
 
