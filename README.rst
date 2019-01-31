@@ -5,6 +5,15 @@ Overview
 
 Only analog TV is supported at the moment.
 
+.. <git> (don't include in release tarballs)
+
+Example
+-------
+
+.. image:: doc/screenshot.svg
+
+.. </git>
+
 Prerequisites
 =============
 
