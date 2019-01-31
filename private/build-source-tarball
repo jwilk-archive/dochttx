@@ -34,7 +34,8 @@ rm .git*
 private/autogen
 rm -r *.cache
 rm private/build-source-tarball
-mv README.rst doc/README
+rm doc/README
+sed -e '/<git>/,/<\/git>/d' < README.rst > doc/README
 mv LICENSE doc/
 cd ..
 mkdir -p "$pwd/dist"
