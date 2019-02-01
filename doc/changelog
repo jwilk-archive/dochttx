@@ -19,10 +19,14 @@ dochttx (0.3) UNRELEASED; urgency=low
     + Put license into a separate file.
     + Add manual page.
   * Require ncurses with wide-character support
-  * Add install target to the makefile.
+  * Improve the build system:
+    + Add install target.
+    + Add check against BSD make.
+      (Only GNU make is supported.)
+    + Use pkg-config to query information about ncurses.
   * Improve error handling.
 
- -- Jakub Wilk <jwilk@jwilk.net>  Thu, 31 Jan 2019 20:48:08 +0100
+ -- Jakub Wilk <jwilk@jwilk.net>  Fri, 01 Feb 2019 18:17:52 +0100
 
 dochttx (0.2.5) unstable; urgency=low
 
