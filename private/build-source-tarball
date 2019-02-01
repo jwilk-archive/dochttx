@@ -31,6 +31,7 @@ gzip='gzip -9 -n'
 git archive "$commit" --prefix="$name-$version/" | tar -C "$sourceroot" -xf -
 cd "$sourceroot"/*
 rm .git*
+rm .travis.yml
 private/autogen
 rm -r *.cache
 rm private/build-source-tarball
