@@ -37,6 +37,7 @@ rm -r *.cache
 rm private/build-source-tarball
 rm doc/README
 sed -e '/<git>/,/<\/git>/d' < README.rst > doc/README
+rm README.rst
 mv LICENSE doc/
 cd ..
 mkdir -p "$pwd/dist"
