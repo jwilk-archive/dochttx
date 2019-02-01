@@ -2,7 +2,7 @@ dnl | Copyright © 2012-2018 Jakub Wilk <jwilk@jwilk.net>
 dnl | SPDX-License-Identifier: MIT
 
 AC_PREREQ([2.61])
-AC_INIT([dochttx], [0.3], [jwilk@jwilk.net])
+AC_INIT([dochttx], [0.3.1], [jwilk@jwilk.net])
 
 AC_PROG_CC_C99
 
