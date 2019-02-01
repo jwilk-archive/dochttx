@@ -1,4 +1,4 @@
-dochttx (0.3) UNRELEASED; urgency=low
+dochttx (0.3) unstable; urgency=low
 
   * Render G1 Block Mosaic Set as braille patterns.
   * Add the -d option to select input device.
@@ -26,7 +26,7 @@ dochttx (0.3) UNRELEASED; urgency=low
     + Use pkg-config to query information about ncurses.
   * Improve error handling.
 
- -- Jakub Wilk <jwilk@jwilk.net>  Fri, 01 Feb 2019 18:17:52 +0100
+ -- Jakub Wilk <jwilk@jwilk.net>  Fri, 01 Feb 2019 18:19:34 +0100
 
 dochttx (0.2.5) unstable; urgency=low
 
