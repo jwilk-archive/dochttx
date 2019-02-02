@@ -82,9 +82,9 @@ static void private_render(vbi_page *pg, int lines)
                 assert(i >= 0);
                 assert(i < (1 << 6));
                 wchar_t c = 0x2800;
-                for (int x = 0; x < 2; x++)
-                for (int y = 0; y < 3; y++)
-                    c |= !!(i & (1 << (2 * y + x))) << (3 * x + y);
+                for (int px = 0; px < 2; px++)
+                for (int py = 0; py < 3; py++)
+                    c |= !!(i & (1 << (2 * py + px))) << (3 * px + py);
                 assert(c >= 0x2800);
                 assert(c <= 0x283F);
                 wcs[0] = c;
