@@ -9,30 +9,37 @@ addons:
     - autoconf
     - autoconf-archive
     - automake
-    - cppcheck
     - libncursesw5-dev
     - libzvbi-dev
-    - python3-pip
-install:
-- python3 -m pip install --user docutils
-- python3 -m pip install --user pydiatra pyflakes
-- python3 -m pip install --user pycparser
 script:
-- dpkg-parsechangelog -ldoc/changelog --all 2>&1 >/dev/null | { ! grep .; }
-- cppcheck --error-exitcode=1 *.c
 - private/autogen
 - ./configure --prefix ~/.local || cat config.log /fail
 - make
 - private/check-versions
-- private/check-rst
-- python3 -m pydiatra .
-- python3 -m pyflakes .
-- private/gen-region-table <(svn cat https://svn.code.sf.net/p/zapping/svn/trunk/vbi/src/lang.c) > region-table.c
-- git diff --exit-code
 - make install
 - cd /
 - dochttx --version
 - export MANPATH=~/.local/share/man MANWIDTH=80
 - man 1 dochttx | grep -A 10 -w DOCHTTX
+matrix:
+  include:
+  - compiler: null
+    addons:
+      apt:
+        packages:
+        - cppcheck
+        - python3-pip
+    install:
+    - python3 -m pip install --user docutils
+    - python3 -m pip install --user pydiatra pyflakes
+    - python3 -m pip install --user pycparser
+    script:
+    - dpkg-parsechangelog -ldoc/changelog --all 2>&1 >/dev/null | { ! grep .; }
+    - private/check-rst
+    - cppcheck --error-exitcode=1 *.c
+    - python3 -m pydiatra .
+    - python3 -m pyflakes .
+    - private/gen-region-table <(svn cat https://svn.code.sf.net/p/zapping/svn/trunk/vbi/src/lang.c) > region-table.c
+    - git diff --exit-code
 
 # vim:ts=2 sts=2 sw=2 et
