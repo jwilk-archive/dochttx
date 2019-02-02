@@ -45,8 +45,8 @@ struct dochttx_vbi_state *dochttx_vbi_open(const char *dev, int region)
     while (false);
     if (error == NULL)
         error = strerror(errno);
-    dochttx_vbi_close(vbi);
     fprintf(stderr, "dochttx: %s\n", error);
+    dochttx_vbi_close(vbi);
     return NULL;
 }
 
