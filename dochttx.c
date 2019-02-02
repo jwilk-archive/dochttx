@@ -201,7 +201,7 @@ int main(int argc, char **argv)
             break;
         }
         if (FD_ISSET(vbi->fd, &rdfs))
-            dochttx_vbi_has_data(vbi);
+            dochttx_vbi_read_data(vbi);
         if (FD_ISSET(STDIN_FILENO, &rdfs)) {
             bool do_quit = false;
             int chr = getch();

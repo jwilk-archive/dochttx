@@ -51,7 +51,7 @@ struct dochttx_vbi_state *dochttx_vbi_open(const char *dev, int region)
     return NULL;
 }
 
-int dochttx_vbi_has_data(struct dochttx_vbi_state *vbi)
+int dochttx_vbi_read_data(struct dochttx_vbi_state *vbi)
 {
     int rc;
     int lines;
