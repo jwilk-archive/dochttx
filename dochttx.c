@@ -304,17 +304,19 @@ int main(int argc, char **argv)
             setsyx(0, 53 + lf_pos);
             lf_update = false;
         }
-        if (!drawn && vbi_is_cached(vbi->dec, pgno, subno)) {
-            vbi_subno tmp_subno = dochttx_vbi_render(vbi->dec, pgno, subno, 25);
-            show_panel(vbi->dec, pgno, tmp_subno);
-            drawn = true;
+        if (!drawn) {
+            vbi_subno shown_subno = dochttx_vbi_render(vbi->dec, pgno, subno, 25);
+            if (shown_subno >= 0) {
+                show_panel(vbi->dec, pgno, shown_subno);
+                drawn = true;
+            }
         }
-        else if (!np_drawn) {
+        if (!np_drawn) {
             int lines = 1;
             if (pgno == np_pgno && (subno == VBI_ANY_SUBNO || subno == np_subno))
                 lines = 25;
-            dochttx_vbi_render(vbi->dec, np_pgno, np_subno, lines);
-            if (lines == 25)
+            vbi_subno shown_subno = dochttx_vbi_render(vbi->dec, np_pgno, np_subno, lines);
+            if (shown_subno >= 0 && lines > 1)
                 show_panel(vbi->dec, np_pgno, np_subno);
             np_drawn = true;
         }

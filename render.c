@@ -104,7 +104,9 @@ static void private_render(vbi_page *pg, int lines)
 vbi_subno dochttx_vbi_render(vbi_decoder *dec, vbi_pgno pgno, vbi_subno subno, int lines)
 {
     vbi_page page;
-    vbi_fetch_vt_page(dec, &page, pgno, subno, VBI_WST_LEVEL_1p5, lines, 1);
+    bool rc = vbi_fetch_vt_page(dec, &page, pgno, subno, VBI_WST_LEVEL_1p5, lines, 1);
+    if (!rc)
+        return -1;
     subno = page.subno;
     private_render(&page, lines);
     vbi_unref_page(&page);
