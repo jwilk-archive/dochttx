@@ -33,6 +33,7 @@ matrix:
     - python3 -m pip install --user docutils
     - python3 -m pip install --user pydiatra pyflakes
     - python3 -m pip install --user pycparser
+    - python3 -m pip install --user html5validator
     script:
     - dpkg-parsechangelog -ldoc/changelog --all 2>&1 >/dev/null | { ! grep .; }
     - private/check-rst
@@ -41,5 +42,6 @@ matrix:
     - python3 -m pyflakes .
     - private/gen-region-table <(svn cat https://svn.code.sf.net/p/zapping/svn/trunk/vbi/src/lang.c) > region-table.c
     - git diff --exit-code
+    - html5validator --svg doc/*.svg
 
 # vim:ts=2 sts=2 sw=2 et
