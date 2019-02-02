@@ -57,7 +57,8 @@ int dochttx_vbi_read_data(struct dochttx_vbi_state *vbi)
     double ts;
     struct timeval tv = { .tv_sec = 1 };
     rc = vbi_capture_read(vbi->cap, vbi->raw, vbi->sliced, &lines, &ts, &tv);
-    vbi_decode(vbi->dec, vbi->sliced, lines, ts);
+    if (rc > 0)
+        vbi_decode(vbi->dec, vbi->sliced, lines, ts);
     return rc;
 }
 
