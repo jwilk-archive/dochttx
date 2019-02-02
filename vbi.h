@@ -12,8 +12,6 @@ struct dochttx_vbi_state
     uint8_t *raw;
     char *err;
     int fd;
-    double ts;
-    struct timeval tv;
 };
 
 struct dochttx_vbi_state *dochttx_vbi_open(const char *, int);

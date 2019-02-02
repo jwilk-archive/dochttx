@@ -39,8 +39,6 @@ struct dochttx_vbi_state *dochttx_vbi_open(const char *dev, int region)
         vbi->sliced = malloc(lines * sizeof(vbi_sliced));
         if (vbi->sliced == NULL)
             break;
-        vbi->tv.tv_sec = 1;
-        vbi->tv.tv_usec = 0;
         return vbi;
     }
     while (false);
@@ -55,8 +53,10 @@ int dochttx_vbi_read_data(struct dochttx_vbi_state *vbi)
 {
     int rc;
     int lines;
-    rc = vbi_capture_read(vbi->cap, vbi->raw, vbi->sliced, &lines, &vbi->ts, &vbi->tv);
-    vbi_decode(vbi->dec, vbi->sliced, lines, vbi->ts);
+    double ts;
+    struct timeval tv = { .tv_sec = 1 };
+    rc = vbi_capture_read(vbi->cap, vbi->raw, vbi->sliced, &lines, &ts, &tv);
+    vbi_decode(vbi->dec, vbi->sliced, lines, ts);
     return rc;
 }
 
