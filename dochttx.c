@@ -25,16 +25,16 @@
 
 static const char default_device[] = "/dev/vbi0";
 
-static vbi_pgno np_pgno = 0;
-static vbi_subno np_subno = 0;
-static bool np_drawn = true;
+static vbi_pgno cur_pgno = 0;
+static vbi_subno cur_subno = 0;
+static bool cur_drawn = true;
 
 static void on_event_ttx_page(vbi_event *ev, void *dec)
 {
     assert(dec == NULL);
-    np_pgno = ev->ev.ttx_page.pgno;
-    np_subno = ev->ev.ttx_page.subno;
-    np_drawn = false;
+    cur_pgno = ev->ev.ttx_page.pgno;
+    cur_subno = ev->ev.ttx_page.subno;
+    cur_drawn = false;
 }
 
 static void show_panel(vbi_decoder* dec, unsigned int pgno, unsigned int subno)
@@ -183,9 +183,9 @@ int main(int argc, char **argv)
 
     vbi_event_handler_register(vbi->dec, VBI_EVENT_TTX_PAGE, on_event_ttx_page, NULL);
 
-    vbi_pgno pgno = 0x100;
-    vbi_subno subno = VBI_ANY_SUBNO;
-    bool drawn = false;
+    vbi_pgno req_pgno = 0x100;
+    vbi_subno req_subno = VBI_ANY_SUBNO;
+    bool req_drawn = false;
     memset(lf, 0, sizeof lf);
     while (true) {
         struct timeval tv = { .tv_sec = 5, .tv_usec = 0 };
@@ -266,15 +266,15 @@ int main(int argc, char **argv)
                 {
                     unsigned int new_pgno, new_subno;
                     if (parse_pagespec(lf, &new_pgno, &new_subno) >= 0) {
-                        pgno = new_pgno;
-                        subno = new_subno;
-                        drawn = false;
+                        req_pgno = new_pgno;
+                        req_subno = new_subno;
+                        req_drawn = false;
                         lf_status = 2;
                         char subnos[3] = "*";
-                        if (subno != VBI_ANY_SUBNO)
-                            sprintf(subnos, "%02x", subno);
+                        if (req_subno != VBI_ANY_SUBNO)
+                            sprintf(subnos, "%02x", req_subno);
                         mvhline(2, 43, ' ', COLS - 43);
-                        mvprintw(2, 43, "Looking for %03X.%s", pgno, subnos);
+                        mvprintw(2, 43, "Looking for %03X.%s", req_pgno, subnos);
                     }
                     else
                         lf_status = -1;
@@ -304,21 +304,21 @@ int main(int argc, char **argv)
             setsyx(0, 53 + lf_pos);
             lf_update = false;
         }
-        if (!drawn) {
-            vbi_subno shown_subno = dochttx_vbi_render(vbi->dec, pgno, subno, 25);
+        if (!req_drawn) {
+            vbi_subno shown_subno = dochttx_vbi_render(vbi->dec, req_pgno, req_subno, 25);
             if (shown_subno >= 0) {
-                show_panel(vbi->dec, pgno, shown_subno);
-                drawn = true;
+                show_panel(vbi->dec, req_pgno, shown_subno);
+                req_drawn = true;
             }
         }
-        if (!np_drawn) {
+        if (!cur_drawn) {
             int lines = 1;
-            if (pgno == np_pgno && (subno == VBI_ANY_SUBNO || subno == np_subno))
+            if (req_pgno == cur_pgno && (req_subno == VBI_ANY_SUBNO || req_subno == cur_subno))
                 lines = 25;
-            vbi_subno shown_subno = dochttx_vbi_render(vbi->dec, np_pgno, np_subno, lines);
+            vbi_subno shown_subno = dochttx_vbi_render(vbi->dec, cur_pgno, cur_subno, lines);
             if (shown_subno >= 0 && lines > 1)
-                show_panel(vbi->dec, np_pgno, np_subno);
-            np_drawn = true;
+                show_panel(vbi->dec, cur_pgno, cur_subno);
+            cur_drawn = true;
         }
         doupdate();
     }
