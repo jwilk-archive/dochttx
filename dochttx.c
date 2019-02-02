@@ -29,9 +29,9 @@ static vbi_pgno cur_pgno = 0;
 static vbi_subno cur_subno = 0;
 static bool cur_drawn = true;
 
-static void on_event_ttx_page(vbi_event *ev, void *dec)
+static void on_event_ttx_page(vbi_event *ev, void *data)
 {
-    assert(dec == NULL);
+    assert(data == NULL);
     cur_pgno = ev->ev.ttx_page.pgno;
     cur_subno = ev->ev.ttx_page.subno;
     cur_drawn = false;
