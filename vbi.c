@@ -13,16 +13,7 @@
 struct dochttx_vbi_state *dochttx_vbi_open(const char *dev, int region)
 {
     struct dochttx_vbi_state *vbi;
-    unsigned int services = 0
-        | VBI_SLICED_CAPTION_525
-        | VBI_SLICED_CAPTION_625
-        | VBI_SLICED_TELETEXT_B
-        | VBI_SLICED_VBI_525
-        | VBI_SLICED_VBI_625
-        | VBI_SLICED_VPS
-        | VBI_SLICED_WSS_625
-        | VBI_SLICED_WSS_CPR1204
-        ;
+    unsigned int services = VBI_SLICED_TELETEXT_B;
     const char *error = NULL;
     do {
         size_t lines;
