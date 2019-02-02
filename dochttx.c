@@ -31,7 +31,7 @@ static bool np_drawn = true;
 
 static void intercept(vbi_event *ev, void *dec)
 {
-    (void) dec; /* unused */
+    assert(dec == NULL);
     np_pgno = ev->ev.ttx_page.pgno;
     np_subno = ev->ev.ttx_page.subno;
     np_drawn = false;
@@ -181,7 +181,7 @@ int main(int argc, char **argv)
     mvprintw(2, 43, "Looking for 100.*");
     wnoutrefresh(stdscr);
 
-    vbi_event_handler_register(vbi->dec, VBI_EVENT_TTX_PAGE, intercept, (void*) vbi->dec);
+    vbi_event_handler_register(vbi->dec, VBI_EVENT_TTX_PAGE, intercept, NULL);
 
     vbi_pgno pgno = 0x100;
     vbi_subno subno = VBI_ANY_SUBNO;
