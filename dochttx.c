@@ -6,12 +6,12 @@
 #include <errno.h>
 #include <getopt.h>
 #include <limits.h>
+#include <poll.h>
 #include <regex.h>
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <sys/select.h>
 #include <unistd.h>
 
 #include <curses.h>
@@ -188,21 +188,20 @@ int main(int argc, char **argv)
     bool req_drawn = false;
     memset(lf, 0, sizeof lf);
     while (true) {
-        struct timeval tv = { .tv_sec = 5, .tv_usec = 0 };
-        fd_set rdfs;
-        FD_ZERO(&rdfs);
-        FD_SET(STDIN_FILENO, &rdfs);
         assert(vbi->fd >= 0);
-        FD_SET(vbi->fd, &rdfs);
-        int rs = select(vbi->fd+1, &rdfs, NULL, NULL, &tv);
+        struct pollfd fds[2] = {
+            { .fd = STDIN_FILENO, .events = POLLIN },
+            { .fd = vbi->fd, .events = POLLIN },
+        };
+        int rs = poll(fds, 2, -1);
         if (rs == -1) {
             if (errno == EINTR)
                 continue;
             break;
         }
-        if (FD_ISSET(vbi->fd, &rdfs))
+        if (fds[1].revents)
             dochttx_vbi_read_data(vbi);
-        if (FD_ISSET(STDIN_FILENO, &rdfs)) {
+        if (fds[0].revents) {
             bool do_quit = false;
             int chr = getch();
             switch (chr) {
