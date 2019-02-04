@@ -7,6 +7,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <sys/stat.h>
 #include <sys/time.h>
 
 #include "vbi.h"
@@ -15,6 +16,7 @@ struct dochttx_vbi_state *dochttx_vbi_open(const char *dev, int region)
 {
     struct dochttx_vbi_state *vbi;
     unsigned int services = VBI_SLICED_TELETEXT_B;
+    const char *econtext = NULL;
     const char *error = NULL;
     do {
         size_t lines;
@@ -26,6 +28,12 @@ struct dochttx_vbi_state *dochttx_vbi_open(const char *dev, int region)
         if (vbi->dec == NULL)
             break;
         vbi_teletext_set_default_region(vbi->dec, region);
+        struct stat st;
+        int rc = stat(dev, &st);
+        if (rc < 0) {
+            econtext = dev;
+            break;
+        }
         vbi->cap = vbi_capture_v4l2_new(dev, 16, &services, -1, &vbi->err, 0);
         if (vbi->cap == NULL) {
             error = vbi->err;
@@ -45,7 +53,10 @@ struct dochttx_vbi_state *dochttx_vbi_open(const char *dev, int region)
     while (false);
     if (error == NULL)
         error = strerror(errno);
-    fprintf(stderr, "dochttx: %s\n", error);
+    fprintf(stderr, "dochttx: ");
+    if (econtext != NULL)
+        fprintf(stderr, "%s: ", econtext);
+    fprintf(stderr, "%s\n", error);
     dochttx_vbi_close(vbi);
     return NULL;
 }
