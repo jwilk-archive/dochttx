@@ -1,4 +1,4 @@
-dnl | Copyright © 2012-2018 Jakub Wilk <jwilk@jwilk.net>
+dnl | Copyright © 2012-2019 Jakub Wilk <jwilk@jwilk.net>
 dnl | SPDX-License-Identifier: MIT
 
 AC_PREREQ([2.61])
