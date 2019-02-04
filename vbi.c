@@ -65,6 +65,10 @@ struct dochttx_vbi_state *dochttx_vbi_open(const char *dev, int region)
         }
         vbi->par = vbi_capture_parameters(vbi->cap);
         vbi->fd = vbi_capture_fd(vbi->cap);
+        if (classify_stat(&st) != TYPE_DEV_NULL && vbi->fd < 0) {
+            errno = EBADF;
+            break;
+        }
         lines = vbi->par->count[0] + vbi->par->count[1];
         vbi->raw = malloc(lines * vbi->par->bytes_per_line);
         if (vbi->raw == NULL)
