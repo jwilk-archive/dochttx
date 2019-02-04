@@ -188,12 +188,13 @@ int main(int argc, char **argv)
     bool req_drawn = false;
     memset(lf, 0, sizeof lf);
     while (true) {
-        assert(vbi->fd >= 0);
         struct pollfd fds[2] = {
             { .fd = STDIN_FILENO, .events = POLLIN },
-            { .fd = vbi->fd, .events = POLLIN },
+            { .fd = vbi->fd, .events = POLLIN, .revents = POLLIN },
         };
-        int rs = poll(fds, 2, -1);
+        nfds_t nfds = 1 + (vbi->fd >= 0);
+        int timeout = (vbi->fd >= 0) ? -1 : 100;
+        int rs = poll(fds, nfds, timeout);
         if (rs == -1) {
             if (errno == EINTR)
                 continue;

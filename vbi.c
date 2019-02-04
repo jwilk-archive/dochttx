@@ -8,14 +8,34 @@
 #include <stdlib.h>
 #include <string.h>
 #include <sys/stat.h>
+#include <sys/sysmacros.h>
 #include <sys/time.h>
 
 #include "vbi.h"
 
+enum file_type {
+    TYPE_DEV_NULL,
+    TYPE_OTHER,
+};
+
+enum file_type classify_stat(const struct stat *st)
+{
+#if __linux__
+    if (S_ISCHR(st->st_mode) && st->st_rdev == makedev(1, 3))
+       return TYPE_DEV_NULL;
+    return TYPE_OTHER;
+#else
+#error non-Linux systems are not supported yet
+#endif
+}
+
 struct dochttx_vbi_state *dochttx_vbi_open(const char *dev, int region)
 {
     struct dochttx_vbi_state *vbi;
-    unsigned int services = VBI_SLICED_TELETEXT_B;
+    unsigned int services =
+        VBI_SLICED_TELETEXT_B |
+        VBI_SLICED_WSS_625;
+
     const char *econtext = NULL;
     const char *error = NULL;
     do {
@@ -34,7 +54,11 @@ struct dochttx_vbi_state *dochttx_vbi_open(const char *dev, int region)
             econtext = dev;
             break;
         }
-        vbi->cap = vbi_capture_v4l2_new(dev, 16, &services, -1, &vbi->err, 0);
+        vbi->err = NULL;
+        if (classify_stat(&st) == TYPE_DEV_NULL)
+            vbi->cap = vbi_capture_sim_new(625, &services, false, true);
+        else
+            vbi->cap = vbi_capture_v4l2_new(dev, 16, &services, -1, &vbi->err, 0);
         if (vbi->cap == NULL) {
             error = vbi->err;
             break;
