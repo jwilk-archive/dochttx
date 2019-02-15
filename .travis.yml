@@ -31,13 +31,13 @@ matrix:
         - cppcheck
         - python3-pip
     install:
-    - python3 -m pip install --user docutils
+    - python3 -m pip install --user restructuredtext-lint
     - python3 -m pip install --user pydiatra pyflakes
     - python3 -m pip install --user pycparser
     - python3 -m pip install --user html5validator
     script:
     - dpkg-parsechangelog -ldoc/changelog --all 2>&1 >/dev/null | { ! grep .; }
-    - private/check-rst
+    - restructuredtext-lint --encoding=UTF-8 README.rst
     - cppcheck --error-exitcode=1 *.c
     - python3 -m pydiatra .
     - python3 -m pyflakes .
