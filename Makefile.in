@@ -38,11 +38,11 @@ install: dochttx
 
 .PHONY: test
 test: dochttx
-	test/run ./dochttx
+	prove -v
 
 .PHONY: test-installed
 test-installed: $(or $(shell command -v dochttx;),$(bindir)/dochttx)
-	test/run dochttx
+	DOCHTTX_TEST_TARGET=dochttx prove -v
 
 .PHONY: clean
 clean:

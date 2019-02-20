@@ -9,6 +9,7 @@ addons:
     - autoconf
     - autoconf-archive
     - automake
+    - libipc-system-simple-perl
     - libncursesw5-dev
     - libzvbi-dev
     - tmux
