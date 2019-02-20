@@ -21,7 +21,7 @@ tmux()
     command tmux -f /dev/null -S "$tmpdir/tmux.socket" "$@"
 }
 
-tmux new-session -d -- "$target" -d /dev/null
+tmux new-session -d -- "$target -d /dev/null"
 sleep 1
 tmux capture-pane -ep
 tmux kill-session
