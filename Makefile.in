@@ -36,6 +36,14 @@ install: dochttx
 	install -d $(DESTDIR)$(PREFIX)$(mandir)/man1
 	install -m644 doc/$(<).1 $(DESTDIR)$(PREFIX)$(mandir)/man1/
 
+.PHONY: test
+test: dochttx
+	test/run ./dochttx
+
+.PHONY: test-installed
+test-installed: $(or $(shell command -v dochttx;),$(bindir)/dochttx)
+	test/run dochttx
+
 .PHONY: clean
 clean:
 	rm -f *.o dochttx Makefile.dep
