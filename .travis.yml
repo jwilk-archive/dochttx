@@ -11,15 +11,16 @@ addons:
     - automake
     - libncursesw5-dev
     - libzvbi-dev
+    - tmux
 script:
 - private/autogen
 - ./configure --prefix ~/.local || cat config.log /fail
 - make
+- make test
 - private/check-versions
 - make install
 - cd /
 - dochttx --version
-- timeout 1s dochttx -d /dev/null; [ $? -eq 124 ]
 - export MANPATH=~/.local/share/man MANWIDTH=80
 - man 1 dochttx | grep -A 10 -w DOCHTTX
 matrix:
