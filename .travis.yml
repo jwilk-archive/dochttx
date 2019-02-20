@@ -23,7 +23,7 @@ script:
 - dochttx --version
 - export MANPATH=~/.local/share/man MANWIDTH=80
 - man 1 dochttx | grep -A 10 -w DOCHTTX
-matrix:
+jobs:
   include:
   - compiler: null
     addons:
