@@ -30,7 +30,7 @@ run_tmux('new-session', '-d', '--', "$target -d /dev/null");
 sleep(1);
 my $out = run_tmux('capture-pane', '-ep');
 run_tmux('kill-session');
-cmp_ok($out, 'ne', '', 'screen capture');
+like($out, qr/\bLIBZVBI TELETEXT SIMULATION\b/, 'screen capture');
 diag($out);
 
 # vim:ts=4 sts=4 sw=4 et
