@@ -18,7 +18,6 @@ script:
 - ./configure --prefix ~/.local || cat config.log /fail
 - make
 - make test
-- private/check-versions
 - make install
 - cd /
 - dochttx --version
