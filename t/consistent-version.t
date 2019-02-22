@@ -15,7 +15,7 @@ use Test::More tests => 6;
 use IPC::System::Simple qw(capture);
 
 my $basedir = "$FindBin::Bin/..";
-my $target = $ENV{DOCHTTX} // "$basedir/dochttx";
+my $target = $ENV{DOCHTTX_TEST_TARGET} // "$FindBin::Bin/../dochttx";
 
 my $cli_version_re = qr/\Adochttx (\S+)\n/;
 my $stdout = capture($target, '--version');
