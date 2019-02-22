@@ -1,4 +1,4 @@
-dochttx (0.3.1) UNRELEASED; urgency=low
+dochttx (0.3.1) unstable; urgency=low
 
   * Implement teletext simulation (dochttx -d /dev/null).
   * Improve typography in the manual page.
@@ -7,7 +7,7 @@ dochttx (0.3.1) UNRELEASED; urgency=low
   * Set https://github.com/jwilk/dochttx/issues as bug report URL in the
     configure script.
 
- -- Jakub Wilk <jwilk@jwilk.net>  Fri, 22 Feb 2019 11:21:16 +0100
+ -- Jakub Wilk <jwilk@jwilk.net>  Fri, 22 Feb 2019 21:55:38 +0100
 
 dochttx (0.3) unstable; urgency=low
 
