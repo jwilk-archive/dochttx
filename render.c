@@ -46,12 +46,10 @@ static int get_curses_color(const vbi_page *pg, int n, int fallback)
 
 static void private_render(vbi_page *pg, int lines)
 {
-    int x, y, sx = -1, sy = 1;
+    int x, y;
     vbi_char *ch;
     wchar_t wcs[2];
     char mbs[16];
-
-    getsyx(sy, sx);
 
     memset(wcs, 0, sizeof(wcs));
     memset(mbs, 0, sizeof(mbs));
@@ -96,9 +94,6 @@ static void private_render(vbi_page *pg, int lines)
         }
     }
     attrset(A_NORMAL);
-    wnoutrefresh(stdscr);
-    setsyx(sy, sx);
-    doupdate();
 }
 
 vbi_subno dochttx_vbi_render(vbi_decoder *dec, vbi_pgno pgno, vbi_subno subno, int lines)

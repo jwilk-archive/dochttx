@@ -179,7 +179,6 @@ int main(int argc, char **argv)
     mvaddch(25, 41, ACS_BTEE);
     mvprintw(0, 43, "Look for:");
     mvprintw(2, 43, "Looking for 100.*");
-    wnoutrefresh(stdscr);
 
     vbi_event_handler_register(vbi->dec, VBI_EVENT_TTX_PAGE, on_event_ttx_page, NULL);
 
@@ -300,8 +299,6 @@ int main(int argc, char **argv)
             }
             mvprintw(0, 53, lf);
             attrset(A_NORMAL);
-            wnoutrefresh(stdscr);
-            setsyx(0, 53 + lf_pos);
             lf_update = false;
         }
         if (!req_drawn) {
@@ -320,7 +317,8 @@ int main(int argc, char **argv)
                 show_panel(vbi->dec, cur_pgno, cur_subno);
             cur_drawn = true;
         }
-        doupdate();
+        move(0, 53 + lf_pos);
+        refresh();
     }
     dochttx_ncurses_quit();
     dochttx_vbi_close(vbi);
