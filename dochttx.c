@@ -167,10 +167,10 @@ int main(int argc, char **argv)
 
     dochttx_ncurses_init();
 
-    char lf[8];
-    int lf_pos = 0;
-    int lf_status = 0;
-    bool lf_update = true;
+    char input[8];
+    int input_pos = 0;
+    int input_status = 0;
+    bool input_update = true;
 
     mvvline(0, 41, ACS_VLINE, 25);
     for (int y = 1; y < 25; y++)
@@ -185,7 +185,7 @@ int main(int argc, char **argv)
     vbi_pgno req_pgno = 0x100;
     vbi_subno req_subno = VBI_ANY_SUBNO;
     bool req_drawn = false;
-    memset(lf, 0, sizeof lf);
+    memset(input, 0, sizeof input);
     while (true) {
         struct pollfd fds[2] = {
             { .fd = STDIN_FILENO, .events = POLLIN },
@@ -210,18 +210,18 @@ int main(int argc, char **argv)
                 do_quit = true;
                 break;
             case KEY_LEFT:
-                if (lf_status == 2)
-                    lf_status = 1;
-                if (lf_pos > 0)
-                    lf_pos--;
-                lf_update = true;
+                if (input_status == 2)
+                    input_status = 1;
+                if (input_pos > 0)
+                    input_pos--;
+                input_update = true;
                 break;
             case KEY_RIGHT:
-                if (lf_status == 2)
-                    lf_status = 1;
-                if (lf[lf_pos] != '\0')
-                    lf_pos++;
-                lf_update = true;
+                if (input_status == 2)
+                    input_status = 1;
+                if (input[input_pos] != '\0')
+                    input_pos++;
+                input_update = true;
                 break;
             case 'a': case 'b': case 'c': case 'd': case 'e': case 'f':
                 chr = chr - 'a' + 'A';
@@ -229,46 +229,46 @@ int main(int argc, char **argv)
             case 'A': case 'B': case 'C': case 'D': case 'E': case 'F':
             case '0': case '1': case '2': case '3': case '4':
             case '5': case '6': case '7': case '8': case '9':
-                if (lf_status == 2) {
-                    memset(lf, 0, sizeof(lf));
-                    lf[0] = (char)chr;
-                    lf_pos = 1;
+                if (input_status == 2) {
+                    memset(input, 0, sizeof(input));
+                    input[0] = (char)chr;
+                    input_pos = 1;
                 }
                 else
                 /* fall through */
             case '.':
-                if (lf[5] == '\0') {
-                    memmove(lf + lf_pos + 1, lf + lf_pos, 7 - lf_pos);
-                    lf[lf_pos++] = (char)chr;
+                if (input[5] == '\0') {
+                    memmove(input + input_pos + 1, input + input_pos, 7 - input_pos);
+                    input[input_pos++] = (char)chr;
                 }
-                lf_status = 0;
-                lf_update = true;
+                input_status = 0;
+                input_update = true;
                 break;
             case KEY_DC:
-                if (lf_pos >= 6)
+                if (input_pos >= 6)
                     break;
-                lf_pos++;
+                input_pos++;
                 /* fall through */
             case KEY_BACKSPACE:
             case '\x7F':
             case '\b':
-                if (lf_pos == 0)
+                if (input_pos == 0)
                     break;
-                memmove(lf + lf_pos - 1, lf + lf_pos, 7 - lf_pos);
-                lf_pos--;
-                lf_status = 0;
-                lf_update = true;
+                memmove(input + input_pos - 1, input + input_pos, 7 - input_pos);
+                input_pos--;
+                input_status = 0;
+                input_update = true;
                 break;
             case KEY_ENTER:
             case '\n':
             case '\r':
                 {
                     unsigned int new_pgno, new_subno;
-                    if (parse_pagespec(lf, &new_pgno, &new_subno) >= 0) {
+                    if (parse_pagespec(input, &new_pgno, &new_subno) >= 0) {
                         req_pgno = new_pgno;
                         req_subno = new_subno;
                         req_drawn = false;
-                        lf_status = 2;
+                        input_status = 2;
                         char subnos[3] = "*";
                         if (req_subno != VBI_ANY_SUBNO)
                             sprintf(subnos, "%02x", req_subno);
@@ -276,17 +276,17 @@ int main(int argc, char **argv)
                         mvprintw(2, 43, "Looking for %03X.%s", req_pgno, subnos);
                     }
                     else
-                        lf_status = -1;
-                    lf_update = true;
+                        input_status = -1;
+                    input_update = true;
                 }
                 break;
             }
             if (do_quit)
                 break;
         }
-        if (lf_update) {
+        if (input_update) {
             mvhline(0, 53, '_', 6);
-            switch (lf_status) {
+            switch (input_status) {
             case -1:
                 attrset(dochttx_colors[7][1]);
             case 2:
@@ -297,9 +297,9 @@ int main(int argc, char **argv)
             default:
                 attrset(A_NORMAL);
             }
-            mvprintw(0, 53, lf);
+            mvprintw(0, 53, input);
             attrset(A_NORMAL);
-            lf_update = false;
+            input_update = false;
         }
         if (!req_drawn) {
             vbi_subno shown_subno = dochttx_vbi_render(vbi->dec, req_pgno, req_subno, 25);
@@ -317,7 +317,7 @@ int main(int argc, char **argv)
                 show_panel(vbi->dec, cur_pgno, cur_subno);
             cur_drawn = true;
         }
-        move(0, 53 + lf_pos);
+        move(0, 53 + input_pos);
         refresh();
     }
     dochttx_ncurses_quit();
