@@ -37,24 +37,34 @@ static void on_event_ttx_page(vbi_event *ev, void *data)
     cur_drawn = false;
 }
 
-static void draw_input(int status, const char *input, int pos)
+struct input {
+    char text[7];
+    size_t position;
+    enum {
+        INPUT_ERROR = -1,
+        INPUT_NORMAL = 0,
+        INPUT_VALIDATED,
+        INPUT_VALIDATED_JUST_NOW,
+    } status;
+};
+
+static void draw_input(const struct input *input)
 {
     mvprintw(0, 43, "Look for:");
-    mvhline(0, 53, '_', 6);
-    switch (status) {
-    case -1:
+    mvhline(0, 53, '_', sizeof input->text - 1);
+    switch (input->status) {
+    case INPUT_ERROR:
         attrset(dochttx_colors[7][1]);
-    case 2:
-    case 1:
+    case INPUT_VALIDATED:
+    case INPUT_VALIDATED_JUST_NOW:
         attron(A_BOLD);
         break;
-    case 0:
-    default:
+    case INPUT_NORMAL:
         attrset(A_NORMAL);
     }
-    mvprintw(0, 53, input);
+    mvprintw(0, 53, input->text);
     attrset(A_NORMAL);
-    move(0, 53 + pos);
+    move(0, 53 + input->position);
 }
 
 static void draw_looking_for(unsigned int pgno, unsigned int subno)
@@ -209,10 +219,12 @@ int main(int argc, char **argv)
     draw_looking_for(req_pgno, req_subno);
     bool req_drawn = false;
 
-    char input[8] = {0};
-    int input_pos = 0;
-    int input_status = 0;
-    draw_input(input_status, input, input_pos);
+    struct input input = {
+        .text = {0},
+        .position = 0,
+        .status = INPUT_NORMAL,
+    };
+    draw_input(&input);
 
     refresh();
 
@@ -240,16 +252,16 @@ int main(int argc, char **argv)
                 do_quit = true;
                 break;
             case KEY_LEFT:
-                if (input_status == 2)
-                    input_status = 1;
-                if (input_pos > 0)
-                    input_pos--;
+                if (input.status == INPUT_VALIDATED_JUST_NOW)
+                    input.status = INPUT_VALIDATED;
+                if (input.position > 0)
+                    input.position--;
                 break;
             case KEY_RIGHT:
-                if (input_status == 2)
-                    input_status = 1;
-                if (input[input_pos] != '\0')
-                    input_pos++;
+                if (input.status == INPUT_VALIDATED_JUST_NOW)
+                    input.status = INPUT_VALIDATED;
+                if (input.text[input.position] != '\0')
+                    input.position++;
                 break;
             case 'a': case 'b': case 'c': case 'd': case 'e': case 'f':
                 chr = chr - 'a' + 'A';
@@ -257,46 +269,54 @@ int main(int argc, char **argv)
             case 'A': case 'B': case 'C': case 'D': case 'E': case 'F':
             case '0': case '1': case '2': case '3': case '4':
             case '5': case '6': case '7': case '8': case '9':
-                if (input_status == 2) {
-                    memset(input, 0, sizeof(input));
-                    input[0] = (char)chr;
-                    input_pos = 1;
+                if (input.status == INPUT_VALIDATED_JUST_NOW) {
+                    memset(input.text, 0, sizeof input.text);
+                    input.text[0] = (char) chr;
+                    input.position = 1;
                 } else
                 /* fall through */
             case '.':
-                if (input[5] == '\0') {
-                    memmove(input + input_pos + 1, input + input_pos, 7 - input_pos);
-                    input[input_pos++] = (char)chr;
+                if (input.text[sizeof input.text - 2] == '\0') {
+                    memmove(
+                        input.text + input.position + 1,
+                        input.text + input.position,
+                        sizeof input.text - input.position
+                    );
+                    input.text[input.position++] = (char) chr;
                 }
-                input_status = 0;
+                input.status = INPUT_NORMAL;
                 break;
             case KEY_DC:
-                if (input_pos >= 6)
+                if (input.position >= sizeof input.text - 1)
                     break;
-                input_pos++;
+                input.position++;
                 /* fall through */
             case KEY_BACKSPACE:
             case '\x7F':
             case '\b':
-                if (input_pos == 0)
+                if (input.position == 0)
                     break;
-                memmove(input + input_pos - 1, input + input_pos, 7 - input_pos);
-                input_pos--;
-                input_status = 0;
+                memmove(
+                    input.text + input.position - 1,
+                    input.text + input.position,
+                    sizeof input.text - input.position
+                );
+                input.position--;
+                input.status = INPUT_NORMAL;
                 break;
             case KEY_ENTER:
             case '\n':
             case '\r':
                 {
                     unsigned int new_pgno, new_subno;
-                    if (parse_pagespec(input, &new_pgno, &new_subno) >= 0) {
+                    if (parse_pagespec(input.text, &new_pgno, &new_subno) >= 0) {
                         draw_looking_for(new_pgno, new_subno);
                         req_pgno = new_pgno;
                         req_subno = new_subno;
                         req_drawn = false;
-                        input_status = 2;
+                        input.status = INPUT_VALIDATED_JUST_NOW;
                     } else
-                        input_status = -1;
+                        input.status = INPUT_ERROR;
                 }
                 break;
             }
@@ -319,7 +339,7 @@ int main(int argc, char **argv)
                 draw_showing_page(vbi->dec, cur_pgno, cur_subno);
             cur_drawn = true;
         }
-        draw_input(input_status, input, input_pos);
+        draw_input(&input);
         refresh();
     }
     dochttx_ncurses_quit();
