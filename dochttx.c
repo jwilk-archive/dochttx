@@ -37,6 +37,24 @@ static void on_event_ttx_page(vbi_event *ev, void *data)
     cur_drawn = false;
 }
 
+static void draw_input(int status, const char *input)
+{
+    mvhline(0, 53, '_', 6);
+    switch (status) {
+    case -1:
+        attrset(dochttx_colors[7][1]);
+    case 2:
+    case 1:
+        attron(A_BOLD);
+        break;
+    case 0:
+    default:
+        attrset(A_NORMAL);
+    }
+    mvprintw(0, 53, input);
+    attrset(A_NORMAL);
+}
+
 static void show_panel(vbi_decoder* dec, unsigned int pgno, unsigned int subno)
 {
     vbi_subno maxsubno;
@@ -284,23 +302,8 @@ int main(int argc, char **argv)
             if (do_quit)
                 break;
         }
-        if (input_update) {
-            mvhline(0, 53, '_', 6);
-            switch (input_status) {
-            case -1:
-                attrset(dochttx_colors[7][1]);
-            case 2:
-            case 1:
-                attron(A_BOLD);
-                break;
-            case 0:
-            default:
-                attrset(A_NORMAL);
-            }
-            mvprintw(0, 53, input);
-            attrset(A_NORMAL);
-            input_update = false;
-        }
+        if (input_update)
+            draw_input(input_status, input);
         if (!req_drawn) {
             vbi_subno shown_subno = dochttx_vbi_render(vbi->dec, req_pgno, req_subno, 25);
             if (shown_subno >= 0) {
