@@ -55,7 +55,7 @@ static void draw_input(int status, const char *input)
     attrset(A_NORMAL);
 }
 
-static void show_panel(vbi_decoder* dec, unsigned int pgno, unsigned int subno)
+static void draw_showing_page(vbi_decoder* dec, unsigned int pgno, unsigned int subno)
 {
     vbi_subno maxsubno;
     vbi_classify_page(dec, pgno, &maxsubno, NULL);
@@ -300,7 +300,7 @@ int main(int argc, char **argv)
         if (!req_drawn) {
             vbi_subno shown_subno = dochttx_vbi_render(vbi->dec, req_pgno, req_subno, 25);
             if (shown_subno >= 0) {
-                show_panel(vbi->dec, req_pgno, shown_subno);
+                draw_showing_page(vbi->dec, req_pgno, shown_subno);
                 req_drawn = true;
             }
         }
@@ -310,7 +310,7 @@ int main(int argc, char **argv)
                 lines = 25;
             vbi_subno shown_subno = dochttx_vbi_render(vbi->dec, cur_pgno, cur_subno, lines);
             if (shown_subno >= 0 && lines > 1)
-                show_panel(vbi->dec, cur_pgno, cur_subno);
+                draw_showing_page(vbi->dec, cur_pgno, cur_subno);
             cur_drawn = true;
         }
         move(0, 53 + input_pos);
