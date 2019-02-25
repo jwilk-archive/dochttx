@@ -37,8 +37,9 @@ static void on_event_ttx_page(vbi_event *ev, void *data)
     cur_drawn = false;
 }
 
-static void draw_input(int status, const char *input)
+static void draw_input(int status, const char *input, int pos)
 {
+    mvprintw(0, 43, "Look for:");
     mvhline(0, 53, '_', 6);
     switch (status) {
     case -1:
@@ -53,6 +54,7 @@ static void draw_input(int status, const char *input)
     }
     mvprintw(0, 53, input);
     attrset(A_NORMAL);
+    move(0, 53 + pos);
 }
 
 static void draw_looking_for(unsigned int pgno, unsigned int subno)
@@ -194,16 +196,11 @@ int main(int argc, char **argv)
 
     dochttx_ncurses_init();
 
-    char input[8] = {0};
-    int input_pos = 0;
-    int input_status = 0;
-
     mvvline(0, 41, ACS_VLINE, 25);
     for (int y = 1; y < 25; y++)
         mvhline(y, 0, ACS_BOARD, 41);
     mvhline(25, 0, ACS_HLINE, COLS);
     mvaddch(25, 41, ACS_BTEE);
-    mvprintw(0, 43, "Look for:");
 
     vbi_event_handler_register(vbi->dec, VBI_EVENT_TTX_PAGE, on_event_ttx_page, NULL);
 
@@ -211,6 +208,12 @@ int main(int argc, char **argv)
     vbi_subno req_subno = VBI_ANY_SUBNO;
     draw_looking_for(req_pgno, req_subno);
     bool req_drawn = false;
+
+    char input[8] = {0};
+    int input_pos = 0;
+    int input_status = 0;
+    draw_input(input_status, input, input_pos);
+
     while (true) {
         struct pollfd fds[2] = {
             { .fd = STDIN_FILENO, .events = POLLIN },
@@ -298,7 +301,6 @@ int main(int argc, char **argv)
             if (do_quit)
                 break;
         }
-        draw_input(input_status, input);
         if (!req_drawn) {
             vbi_subno shown_subno = dochttx_vbi_render(vbi->dec, req_pgno, req_subno, 25);
             if (shown_subno >= 0) {
@@ -315,7 +317,7 @@ int main(int argc, char **argv)
                 draw_showing_page(vbi->dec, cur_pgno, cur_subno);
             cur_drawn = true;
         }
-        move(0, 53 + input_pos);
+        draw_input(input_status, input, input_pos);
         refresh();
     }
     dochttx_ncurses_quit();
