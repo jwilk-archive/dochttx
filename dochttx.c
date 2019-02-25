@@ -54,7 +54,7 @@ static void draw_input(const struct input *input)
     mvhline(0, 53, '_', sizeof input->text - 1);
     switch (input->status) {
     case INPUT_ERROR:
-        attrset(dochttx_colors[7][1]);
+        attrset(dochttx_colors[COLOR_WHITE][COLOR_RED]);
     case INPUT_VALIDATED:
     case INPUT_VALIDATED_JUST_NOW:
         attron(A_BOLD);

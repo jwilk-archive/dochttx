@@ -59,8 +59,8 @@ static void private_render(vbi_page *pg, int lines)
             wcs[0] = ch->unicode;
             if (ch->size > VBI_DOUBLE_SIZE || ch->conceal)
                 wcs[0] = L' ';
-            int fg_color = get_curses_color(pg, ch->foreground, 7);
-            int bg_color = get_curses_color(pg, ch->background, 0);
+            int fg_color = get_curses_color(pg, ch->foreground, COLOR_WHITE);
+            int bg_color = get_curses_color(pg, ch->background, COLOR_BLACK);
             attrset(dochttx_colors[fg_color][bg_color]);
             if (ch->bold)
                 attron(A_BOLD);
