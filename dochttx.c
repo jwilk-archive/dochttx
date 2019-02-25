@@ -214,6 +214,8 @@ int main(int argc, char **argv)
     int input_status = 0;
     draw_input(input_status, input, input_pos);
 
+    refresh();
+
     while (true) {
         struct pollfd fds[2] = {
             { .fd = STDIN_FILENO, .events = POLLIN },
