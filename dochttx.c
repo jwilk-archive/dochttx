@@ -188,7 +188,6 @@ int main(int argc, char **argv)
     char input[8];
     int input_pos = 0;
     int input_status = 0;
-    bool input_update = true;
 
     mvvline(0, 41, ACS_VLINE, 25);
     for (int y = 1; y < 25; y++)
@@ -232,14 +231,12 @@ int main(int argc, char **argv)
                     input_status = 1;
                 if (input_pos > 0)
                     input_pos--;
-                input_update = true;
                 break;
             case KEY_RIGHT:
                 if (input_status == 2)
                     input_status = 1;
                 if (input[input_pos] != '\0')
                     input_pos++;
-                input_update = true;
                 break;
             case 'a': case 'b': case 'c': case 'd': case 'e': case 'f':
                 chr = chr - 'a' + 'A';
@@ -260,7 +257,6 @@ int main(int argc, char **argv)
                     input[input_pos++] = (char)chr;
                 }
                 input_status = 0;
-                input_update = true;
                 break;
             case KEY_DC:
                 if (input_pos >= 6)
@@ -275,7 +271,6 @@ int main(int argc, char **argv)
                 memmove(input + input_pos - 1, input + input_pos, 7 - input_pos);
                 input_pos--;
                 input_status = 0;
-                input_update = true;
                 break;
             case KEY_ENTER:
             case '\n':
@@ -295,15 +290,13 @@ int main(int argc, char **argv)
                     }
                     else
                         input_status = -1;
-                    input_update = true;
                 }
                 break;
             }
             if (do_quit)
                 break;
         }
-        if (input_update)
-            draw_input(input_status, input);
+        draw_input(input_status, input);
         if (!req_drawn) {
             vbi_subno shown_subno = dochttx_vbi_render(vbi->dec, req_pgno, req_subno, 25);
             if (shown_subno >= 0) {
