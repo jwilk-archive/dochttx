@@ -194,7 +194,7 @@ int main(int argc, char **argv)
 
     dochttx_ncurses_init();
 
-    char input[8];
+    char input[8] = {0};
     int input_pos = 0;
     int input_status = 0;
 
@@ -211,7 +211,6 @@ int main(int argc, char **argv)
     vbi_subno req_subno = VBI_ANY_SUBNO;
     draw_looking_for(req_pgno, req_subno);
     bool req_drawn = false;
-    memset(input, 0, sizeof input);
     while (true) {
         struct pollfd fds[2] = {
             { .fd = STDIN_FILENO, .events = POLLIN },
