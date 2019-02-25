@@ -197,7 +197,7 @@ int main(int argc, char **argv)
     dochttx_ncurses_init();
 
     mvvline(0, 41, ACS_VLINE, 25);
-    for (int y = 1; y < 25; y++)
+    for (int y = 0; y < 25; y++)
         mvhline(y, 0, ACS_BOARD, 41);
     mvhline(25, 0, ACS_HLINE, COLS);
     mvaddch(25, 41, ACS_BTEE);
