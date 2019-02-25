@@ -143,8 +143,8 @@ int main(int argc, char **argv)
         OPT_VERSION
     };
     static struct option long_options[] = {
-        {"help", no_argument, NULL, 'h' },
-        {"version", no_argument, NULL, OPT_VERSION },
+        {"help", no_argument, NULL, 'h'},
+        {"version", no_argument, NULL, OPT_VERSION},
         {NULL, 0, NULL, 0}
     };
     while ((opt = getopt_long(argc, argv, "d:l:h", long_options, NULL)) != -1)
@@ -257,8 +257,7 @@ int main(int argc, char **argv)
                     memset(input, 0, sizeof(input));
                     input[0] = (char)chr;
                     input_pos = 1;
-                }
-                else
+                } else
                 /* fall through */
             case '.':
                 if (input[5] == '\0') {
@@ -292,8 +291,7 @@ int main(int argc, char **argv)
                         req_subno = new_subno;
                         req_drawn = false;
                         input_status = 2;
-                    }
-                    else
+                    } else
                         input_status = -1;
                 }
                 break;
