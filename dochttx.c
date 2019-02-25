@@ -55,6 +55,15 @@ static void draw_input(int status, const char *input)
     attrset(A_NORMAL);
 }
 
+static void draw_looking_for(unsigned int pgno, unsigned int subno)
+{
+    char subnos[3] = "*";
+    if (subno != VBI_ANY_SUBNO)
+        sprintf(subnos, "%02x", subno);
+    mvhline(2, 43, ' ', COLS - 43);
+    mvprintw(2, 43, "Looking for %03X.%s", pgno, subnos);
+}
+
 static void draw_showing_page(vbi_decoder* dec, unsigned int pgno, unsigned int subno)
 {
     vbi_subno maxsubno;
@@ -195,12 +204,12 @@ int main(int argc, char **argv)
     mvhline(25, 0, ACS_HLINE, COLS);
     mvaddch(25, 41, ACS_BTEE);
     mvprintw(0, 43, "Look for:");
-    mvprintw(2, 43, "Looking for 100.*");
 
     vbi_event_handler_register(vbi->dec, VBI_EVENT_TTX_PAGE, on_event_ttx_page, NULL);
 
     vbi_pgno req_pgno = 0x100;
     vbi_subno req_subno = VBI_ANY_SUBNO;
+    draw_looking_for(req_pgno, req_subno);
     bool req_drawn = false;
     memset(input, 0, sizeof input);
     while (true) {
@@ -278,15 +287,11 @@ int main(int argc, char **argv)
                 {
                     unsigned int new_pgno, new_subno;
                     if (parse_pagespec(input, &new_pgno, &new_subno) >= 0) {
+                        draw_looking_for(new_pgno, new_subno);
                         req_pgno = new_pgno;
                         req_subno = new_subno;
                         req_drawn = false;
                         input_status = 2;
-                        char subnos[3] = "*";
-                        if (req_subno != VBI_ANY_SUBNO)
-                            sprintf(subnos, "%02x", req_subno);
-                        mvhline(2, 43, ' ', COLS - 43);
-                        mvprintw(2, 43, "Looking for %03X.%s", req_pgno, subnos);
                     }
                     else
                         input_status = -1;
