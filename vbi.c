@@ -18,7 +18,7 @@ enum file_type {
     TYPE_OTHER,
 };
 
-enum file_type classify_stat(const struct stat *st)
+static enum file_type classify_stat(const struct stat *st)
 {
 #if __linux__
     if (S_ISCHR(st->st_mode) && st->st_rdev == makedev(1, 3))
