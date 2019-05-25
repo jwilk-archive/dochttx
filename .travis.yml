@@ -31,6 +31,7 @@ jobs:
         packages:
         - cppcheck
         - python3-pip
+        - python3-setuptools
     install:
     - python3 -m pip install --user restructuredtext-lint
     - python3 -m pip install --user pydiatra pyflakes
