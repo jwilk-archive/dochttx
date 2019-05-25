@@ -40,7 +40,9 @@ jobs:
     script:
     - dpkg-parsechangelog -ldoc/changelog --all 2>&1 >/dev/null | { ! grep .; }
     - restructuredtext-lint --encoding=UTF-8 README.rst
+    - sed -i -e 's/= "[*]"/= "*\\0"/' *.c  # unconfuse cppcheck
     - cppcheck --error-exitcode=1 *.c
+    - git checkout *.c
     - python3 -m pydiatra .
     - python3 -m pyflakes .
     - private/gen-region-table <(svn cat https://svn.code.sf.net/p/zapping/svn/trunk/vbi/src/lang.c) > region-table.c
