@@ -15,14 +15,19 @@
 
 enum file_type {
     TYPE_DEV_NULL,
+    TYPE_DVB,
     TYPE_OTHER,
 };
 
 static enum file_type classify_stat(const struct stat *st)
 {
 #if __linux__
-    if (S_ISCHR(st->st_mode) && st->st_rdev == makedev(1, 3))
-       return TYPE_DEV_NULL;
+    if (S_ISCHR(st->st_mode)) {
+        if (st->st_rdev == makedev(1, 3))
+            return TYPE_DEV_NULL;
+        if (st->st_rdev >= makedev(212, 0) && st->st_rdev <= makedev(212, 255))
+            return TYPE_DVB;
+    }
     return TYPE_OTHER;
 #else
 #error non-Linux systems are not supported yet
@@ -55,10 +60,17 @@ struct dochttx_vbi_state *dochttx_vbi_open(const char *dev, int region)
             break;
         }
         vbi->err = NULL;
-        if (classify_stat(&st) == TYPE_DEV_NULL)
+        switch (classify_stat(&st)) {
+        case TYPE_DEV_NULL:
             vbi->cap = vbi_capture_sim_new(625, &services, false, true);
-        else
+            break;
+        case TYPE_DVB:
+            vbi->cap = vbi_capture_dvb_new2(dev, 0, &vbi->err, 0);
+            break;
+        default:
             vbi->cap = vbi_capture_v4l2_new(dev, 16, &services, -1, &vbi->err, 0);
+            break;
+        }
         if (vbi->cap == NULL) {
             error = vbi->err;
             break;
